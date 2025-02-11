@@ -53,16 +53,10 @@
     #investment-plan {
       margin-top: 20px;
     }
-    /* Animation de Trading (20 secondes) */
-    #trading-animation {
-      display: none;
-      font-size: 1.5em;
+    /* Div ho an'ny trading steps */
+    #trading-steps {
       text-align: center;
-      margin: 20px auto;
-      padding: 20px;
-      background: rgba(0,0,0,0.6);
-      border-radius: 10px;
-      width: 80%;
+      margin-top: 10px;
     }
     /* ---------- Section 2 : Transactions ---------- */
     #section-transaction {
@@ -107,6 +101,7 @@
       border-radius: 10px;
       z-index: 1100;
       font-size: 1.2em;
+      text-align: center;
     }
     /* ---------- Zone de Notification en Haut ---------- */
     #top-notification {
@@ -175,18 +170,8 @@
       text-decoration: underline;
     }
     
-    
-    
-    
-    
-    
-    <!--  -->
-    
-    
-    
-    * Global Styles */
+    /* Styles additionnels (déjà présents) */
     body {
-      margin: 0;
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(135deg, #1e3c72, #2a5298);
       color: #fff;
@@ -199,7 +184,6 @@
       font-size: 2.5em;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     }
-    /* Header image */
     .header-img {
       display: block;
       width: 100%;
@@ -208,7 +192,6 @@
       animation: fadeIn 2s ease-in-out;
       border-bottom: 5px solid #fff;
     }
-    /* Navigation boutons */
     #nav-buttons {
       text-align: center;
       margin: 20px 0;
@@ -227,7 +210,6 @@
       transform: scale(1.1);
       background-color: #e68900;
     }
-    /* Sections */
     #mining-section, #transactions-section, #trading-section {
       background: rgba(255,255,255,0.1);
       margin: 20px auto;
@@ -237,19 +219,10 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       animation: slideIn 1s ease-out;
     }
-    /* Titres de section */
     h3 {
       margin-top: 20px;
       font-weight: 700;
     }
-    /* Style global */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #1a3b6e;
-      text-align: center;
-      padding: 20px;
-    }
-    /* Style des boutons */
     .link-button {
       display: inline-block;
       background-color: #ff5c1c;
@@ -266,14 +239,12 @@
       transform: scale(1.1);
       background-color: #e44d12;
     }
-    /* Disposition en grille */
     #extra-sections {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
     }
-    /* Champs de formulaire */
     input[type="number"], input[type="text"], select {
       width: 100%;
       padding: 10px;
@@ -282,7 +253,6 @@
       border: none;
       font-size: 1em;
     }
-    /* Tableau */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -299,13 +269,11 @@
       background-color: rgba(0,0,0,0.3);
       font-weight: 700;
     }
-    /* Notification en haut */
     #notification {
       text-align: center;
       font-size: 1.2em;
       margin-top: 20px;
     }
-    /* Notification centrale pendant le minage */
     #mining-notification {
       display: none;
       position: fixed;
@@ -318,7 +286,6 @@
       border-radius: 10px;
       z-index: 1000;
     }
-    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -327,36 +294,12 @@
       from { transform: translateY(50px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-    /* Extra sections (liens) */
-    #extra-sections {
-      max-width: 800px;
-      margin: 20px auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      animation: slideIn 1s ease-out;
-    }
-    .link-button {
-      background-color: #ff5722;
-      text-decoration: none;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 25px;
-      font-weight: 700;
-      transition: transform 0.3s, background-color 0.3s;
-      display: inline-block;
-    }
-    .link-button:hover {
-      background-color: #e64a19;
-      transform: translateY(-3px);
-    }
   </style>
 </head>
 <body>
   <!-- Three Dots Menu Button -->
   <div id="menu-button">⋮</div>
-  <!-- Sidebar Menu (hidden by default) -->
+  <!-- Sidebar Menu (hidden by défaut) -->
   <div id="side-menu">
     <ul>
       <li><a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank">Damnade du retrait</a></li>
@@ -379,17 +322,18 @@
     <h2>Solde du Dépôt et Solde des Gains</h2>
     <p>Dépôt : $<span id="soldeDepot">0.00</span></p>
     <p>Gains : $<span id="soldeGains">0.00</span></p>
+
+    <!-- Bouton "Commencer à Trading" -->
     <button id="start-trading">Commencer à Trading</button>
-    <!-- Animation de trading pendant 20 secondes -->
-    <div id="trading-animation">commencement du Trading... Patientez 20 secondes...</div><br ><br >
-    
-    
+    <!-- Div hanovozana ireo dingana trading eo ambanin'ny bokotra -->
+    <div id="trading-steps"></div>
+
     <div class="scrolling-text-container">
-    <marquee behavior="scroll" direction="left">
-      EvoFinance Ltd est une entreprise spécialisée dans le trading automatisé et la gestion de capitaux sur les marchés financiers. Fondée à Londres, notre mission est de rendre l’investissement accessible à tous grâce à des technologies avancées et une expertise éprouvée.
-      Nous utilisons des algorithmes de trading et l’intelligence artificielle pour optimiser les rendements de nos investisseurs. 🚀 Gagnez un bonus de 1% pour chaque inscription via votre lien, même sans dépôt ! 🎉 Plus de 500 membres dans votre équipe = récompense de 10 $ ! 🔥 Profitez de cette opportunité dès maintenant !
-    </marquee>
-  </div>
+      <marquee behavior="scroll" direction="left">
+        EvoFinance Ltd est une entreprise spécialisée dans le trading automatisé et la gestion de capitaux sur les marchés financiers. Fondée à Londres, notre mission est de rendre l’investissement accessible à tous grâce à des technologies avancées et une expertise éprouvée.
+        Nous utilisons des algorithmes de trading et l’intelligence artificielle pour optimiser les rendements de nos investisseurs. 🚀 Gagnez un bonus de 1% pour chaque inscription via votre lien, même sans dépôt ! 🎉 Plus de 500 membres dans votre équipe = récompense de 10 $ ! 🔥 Profitez de cette opportunité dès maintenant !
+      </marquee>
+    </div>
     <!-- Tableau du plan d'investissement -->
     <table id="investment-plan">
       <thead>
@@ -425,6 +369,7 @@
     <div style="text-align:center;">
       <button id="btn-depot">Dépôt</button>
       <button id="btn-retrait">Retrait</button>
+      <button id="btn-transfert">Transfert Gains</button>
     </div>
     <!-- Formulaire Dépôt -->
     <div id="form-depot" class="form-container">
@@ -456,6 +401,19 @@
       </label>
       <button id="submit-retrait">Valider le Retrait</button>
     </div>
+    <!-- Formulaire Transfert Gains -->
+    <div id="form-transfert" class="form-container">
+      <h3>Transfert Gains</h3>
+      <label>
+        Numéro de téléphone du destinataire :
+        <input type="text" id="transfer-phone" placeholder="Ex: 0341234567">
+      </label>
+      <label>
+        Montant ($) :
+        <input type="number" id="transfer-amount">
+      </label>
+      <button id="submit-transfert">Valider le Transfert</button>
+    </div>
   </section>
 
   <!-- ========= Section 3 : Confirmation ========= -->
@@ -479,18 +437,16 @@
     </div>
   </section>
   
-  
-  
   <!-- Section Extra : Liens vers d'autres pages -->
   <div id="extra-sections">
     <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
     <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
     <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
     <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
-  <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
-   <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
-  <a href="https://www.facebook.com/profile.php?id=61573270100474" target="_blank" class="link-button">Service client</a>
-  
+    <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
+    <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
+    <a href="https://www.facebook.com/profile.php?id=61573270100474" target="_blank" class="link-button">Service client</a>
+  </div>
 
   <!-- ========= Section 4 : Historique ========= -->
   <section class="historique" id="section-historique">
@@ -535,12 +491,24 @@
     let lastDeposit = localStorage.getItem("lastDeposit") || "";
     let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
     const clientID = "Client1";
+    // Définir le numéro de téléphone du current user
+    const currentUserPhone = "0341234567";
+    // Initialisation des utilisateurs enregistrés dans localStorage
+    let registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || {};
+    if(!registeredUsers[currentUserPhone]) {
+      registeredUsers[currentUserPhone] = { soldeGains: soldeGains, soldeDepot: soldeDepot };
+      localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+    }
 
     function updateBalances() {
       document.getElementById("soldeDepot").innerText = soldeDepot.toFixed(2);
       document.getElementById("soldeGains").innerText = soldeGains.toFixed(2);
       localStorage.setItem("soldeDepot", soldeDepot);
       localStorage.setItem("soldeGains", soldeGains);
+      // Mise à jour des données du current user
+      registeredUsers[currentUserPhone].soldeGains = soldeGains;
+      registeredUsers[currentUserPhone].soldeDepot = soldeDepot;
+      localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
     }
     function addLog(message) {
       const log = document.getElementById("notification-log");
@@ -548,11 +516,13 @@
       p.innerText = message;
       log.appendChild(p);
     }
-    function showCenteredNotification(message, duration) {
+    function showCenteredNotification(htmlContent, duration) {
       const centerNotif = document.getElementById("center-notification");
-      centerNotif.innerText = message;
+      centerNotif.innerHTML = htmlContent;
       centerNotif.style.display = "block";
-      setTimeout(() => { centerNotif.style.display = "none"; }, duration);
+      if(duration){
+        setTimeout(() => { centerNotif.style.display = "none"; }, duration);
+      }
     }
     function showTopNotification(message, duration) {
       const topNotif = document.getElementById("top-notification");
@@ -562,7 +532,7 @@
     }
     updateBalances();
 
-    /********* Section 1 : Trading *********/
+    /********* SECTION 1 : COMMENCER À TRADING *********/
     document.getElementById("start-trading").addEventListener("click", function(){
       const today = new Date().toDateString();
       if(lastTradingDate === today) {
@@ -573,34 +543,76 @@
         alert("Un dépôt minimum de $15 est requis pour commencer à trading.");
         return;
       }
-      let percentage = 0.015;
+      // Détermination du pourcentage selon le solde
+      let percentage = 0.015; // 1.5%
       if(soldeDepot >= 1000) {
-        percentage = 0.018;
+        percentage = 0.018;  // 1.8%
       } else if(soldeDepot >= 200) {
-        percentage = 0.016;
+        percentage = 0.016;  // 1.6%
       }
-      const anim = document.getElementById("trading-animation");
-      anim.style.display = "block";
-      setTimeout(function(){
-        anim.style.display = "none";
-        const gain = soldeDepot * percentage;
-        soldeGains += gain;
-        updateBalances();
-        addLog("Trading confirmé : Gain de $" + gain.toFixed(2) + " ajouté.");
-        showTopNotification("Trading terminé! Gains totaux: $" + soldeGains.toFixed(2), 3000);
-      }, 20000);
-      lastTradingDate = today;
-      localStorage.setItem("lastTradingDate", today);
+      // Calcul du gain potentiel
+      const gain = soldeDepot * percentage;
+
+      // Effacer d'abord les étapes de trading précédentes
+      const tradingStepsDiv = document.getElementById("trading-steps");
+      tradingStepsDiv.innerHTML = "";
+
+      // Liste des étapes à afficher
+      const steps = [
+        "Commencent de trading",
+        "En attente de prix",
+        "Acheter",
+        "Vendre",
+        "Tâche terminée"
+      ];
+      let i = 0;
+
+      // Fonction récursive pour afficher chaque étape dans la zone dédiée
+      function showStep() {
+        tradingStepsDiv.innerHTML += "<p>" + steps[i] + "</p>";
+        i++;
+        if(i < steps.length) {
+          // Intervalle de 3s entre chaque étape
+          setTimeout(showStep, 3000);
+        } else {
+          // Affichage de la notification centrale avec le gain potentiel et un bouton OK
+          showCenteredNotification(
+            "Tâche terminée !<br>Gains potentiels : $"+ gain.toFixed(2) +
+            "<br><button id='btn-valider-gain'>OK</button>"
+          );
+          // Au clic sur OK, validation du gain
+          document.getElementById("btn-valider-gain").addEventListener("click", function(){
+            soldeGains += gain;
+            updateBalances();
+            addLog("Trading confirmé : Gain de $" + gain.toFixed(2) + " ajouté.");
+            showTopNotification("Trading terminé! Gains totaux: $" + soldeGains.toFixed(2), 3000);
+            // Fermer la notification centrale
+            document.getElementById("center-notification").style.display = "none";
+            // Marquer la date du jour comme déjà tradée
+            lastTradingDate = today;
+            localStorage.setItem("lastTradingDate", today);
+          });
+        }
+      }
+      // Lancement de l'affichage des étapes
+      showStep();
     });
 
     /********* Section 2 : Transactions *********/
     document.getElementById("btn-depot").addEventListener("click", function(){
       document.getElementById("form-depot").style.display = "block";
       document.getElementById("form-retrait").style.display = "none";
+      document.getElementById("form-transfert").style.display = "none";
     });
     document.getElementById("btn-retrait").addEventListener("click", function(){
       document.getElementById("form-retrait").style.display = "block";
       document.getElementById("form-depot").style.display = "none";
+      document.getElementById("form-transfert").style.display = "none";
+    });
+    document.getElementById("btn-transfert").addEventListener("click", function(){
+      document.getElementById("form-transfert").style.display = "block";
+      document.getElementById("form-depot").style.display = "none";
+      document.getElementById("form-retrait").style.display = "none";
     });
     document.getElementById("copy-depot-address").addEventListener("click", function(){
       const select = document.getElementById("depot-address");
@@ -643,6 +655,7 @@
       const addr = document.getElementById("retrait-address").value.trim();
       if(isNaN(amount) || amount <= 0) { alert("Montant invalide."); return; }
       if(amount < 1) { alert("Montant minimum de retrait est $1."); return; }
+      // Retraits autorisés uniquement le lundi
       if(new Date().getDay() !== 1) {
         alert("Les retraits ne sont autorisés que le lundi.");
         return;
@@ -655,7 +668,7 @@
         id: Date.now(),
         client: clientID,
         type: "Retrait",
-        amount: amount, // montant demandé (le frais sera appliqué à la confirmation)
+        amount: amount,
         address: addr,
         date: new Date().toLocaleString(),
         status: "En attente"
@@ -665,6 +678,38 @@
       showCenteredNotification("Retrait en attente de vérification.", 3000);
       addLog("Retrait en attente de vérification : $" + amount.toFixed(2));
       document.getElementById("form-retrait").style.display = "none";
+    });
+    // Validation du transfert de gains
+    document.getElementById("submit-transfert").addEventListener("click", function(){
+      const transferAmount = parseFloat(document.getElementById("transfer-amount").value);
+      const targetPhone = document.getElementById("transfer-phone").value.trim();
+      if(isNaN(transferAmount) || transferAmount <= 0) {
+        alert("Montant invalide.");
+        return;
+      }
+      if(transferAmount > soldeGains) {
+        alert("Solde gains insuffisant pour ce transfert.");
+        return;
+      }
+      if(!targetPhone) {
+        alert("Veuillez entrer un numéro de téléphone valide.");
+        return;
+      }
+      // Effectuer le transfert : on soustrait du solde gains du current user
+      registeredUsers[currentUserPhone].soldeGains -= transferAmount;
+      // Raha tsy misy ilay targetPhone, dia mamorona kaonty vaovao ary mametraka ny vola amin'ny solde du dépôt
+      if(!registeredUsers[targetPhone]) {
+        registeredUsers[targetPhone] = { soldeGains: 0, soldeDepot: transferAmount };
+      } else {
+        // Raha efa misy dia ampiana amin'ny solde du dépôt ilay vola
+        registeredUsers[targetPhone].soldeDepot += transferAmount;
+      }
+      soldeGains = registeredUsers[currentUserPhone].soldeGains;
+      localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+      updateBalances();
+      addLog("Transfert de $" + transferAmount.toFixed(2) + " vers " + targetPhone + " effectué.");
+      showTopNotification("Transfert réussi!", 3000);
+      document.getElementById("form-transfert").style.display = "none";
     });
 
     /********* Section 3 : Confirmation *********/
@@ -760,5 +805,3 @@
   </script>
 </body>
 </html>
-
-
