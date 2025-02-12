@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="mg">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +53,7 @@
     #investment-plan {
       margin-top: 20px;
     }
-    /* Div ho an'ny trading steps */
+    /* Div pour les étapes de trading */
     #trading-steps {
       text-align: center;
       margin-top: 10px;
@@ -170,7 +170,7 @@
       text-decoration: underline;
     }
     
-    /* Styles additionnels (déjà présents) */
+    /* ---------- Styles Additionnels ---------- */
     body {
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(135deg, #1e3c72, #2a5298);
@@ -294,28 +294,80 @@
       from { transform: translateY(50px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
+    /* ---------- Style de l'Annonce ---------- */
+    #announcement {
+      background-color: #fff;
+      color: #000;
+      padding: 20px 30px;
+      border-radius: 8px;
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: left;
+      font-size: 1.1em;
+      font-weight: normal;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      position: relative;
+      line-height: 1.5;
+    }
+    /* Bouton fermer (X) dans l'annonce */
+    #close-announcement {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 1.5em;
+      cursor: pointer;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <!-- Three Dots Menu Button -->
   <div id="menu-button">⋮</div>
-  <!-- Sidebar Menu (hidden by défaut) -->
+  <!-- Sidebar Menu (hidden par défaut) -->
   <div id="side-menu">
     <ul>
-      <li><a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank">Damnade du retrait</a></li>
-      <li><a href="https://evo-finance-depot.vercel.app/" target="_blank">demande du dépôt</a></li>
-      <li><a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank">besoin d'aide</a></li>
+      <li><a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank">Demande de retrait</a></li>
+      <li><a href="https://evo-finance-depot.vercel.app/" target="_blank">Demande de dépôt</a></li>
+      <li><a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank">Besoin d'aide</a></li>
       <li><a href="https://example.com/profil-entreprise" target="_blank">Profil de l'entreprise</a></li>
-      <li><a href="https://www.facebook.com/profile.php?id=61573270100474&mibextid=ZbWKwL" target="_blank">service client</a></li>
-      <li><a href="https://eq-seven.vercel.app/" target="_blank">investissement longue terme </a></li>
-      <li><a href="https://evo-finance-quipe-ivl7.vercel.app/?ref=ABC123" target="_blank">se deconnecter</a></li>
+      <li><a href="https://www.facebook.com/profile.php?id=61573270100474&mibextid=ZbWKwL" target="_blank">Service client</a></li>
+      <li><a href="https://eq-seven.vercel.app/" target="_blank">Investissement longue durée</a></li>
+      <li><a href="https://evo-finance-quipe-ivl7.vercel.app/?ref=ABC123" target="_blank">Se déconnecter</a></li>
     </ul>
   </div>
   
   <!-- Top Notification -->
   <div id="top-notification"></div>
 
-  <h1>EVO-FINANCE </h1>
+  <h1>EVO-FINANCE</h1>
+  
+  <!-- === Section Annonce === -->
+  <div id="announcement">
+    <span id="close-announcement">&times;</span>
+    <h2 style="text-align:center; margin-top:0;">Annonce Importante</h2>
+    <p>
+      Pour tous nos utilisateurs, suite à vos demandes, nous avons décidé d’augmenter les gains de notre plan de trading. 
+      <strong>Voici les nouveaux taux :</strong>
+    </p>
+    <ul style="list-style:disc; margin-left:20px;">
+      <li>Niveau 1 : 2,5% de gains par jour</li>
+      <li>Niveau 2 : 2,6% de gains par jour</li>
+      <li>Niveau 3 : 2,7% de gains par jour</li>
+    </ul>
+    <p>
+      De plus, lors de chaque dépôt d’au moins 15$, vous recevrez immédiatement un bonus de 1$, qui pourra être retiré le lundi.
+    </p>
+    <hr style="border: 0; border-top: 1px solid #ccc;">
+    <p>
+      <strong>Plan d’investissement par contrat :</strong><br>
+      Vous avez également la possibilité d’investir via des contrats. Par exemple :
+    </p>
+    <ul style="list-style:disc; margin-left:20px;">
+      <li>Investissement de 2,5$ : contrat de 30 jours – Gain total de 5% (retrait du capital et des gains à l’issue du contrat).</li>
+      <li>Investissement de 200$ : contrat de 3 mois – Gain de 5,5%.</li>
+      <li>Investissement de 500$ et plus : contrat de 6 mois – Gain de 6,5%.</li>
+    </ul>
+  </div>
 
   <!-- ========= Section 1 : Solde & Trading ========= -->
   <section id="section-solde">
@@ -325,13 +377,13 @@
 
     <!-- Bouton "Commencer à Trading" -->
     <button id="start-trading">Commencer à Trading</button>
-    <!-- Div hanovozana ireo dingana trading eo ambanin'ny bokotra -->
+    <!-- Zone pour afficher les étapes du trading -->
     <div id="trading-steps"></div>
 
     <div class="scrolling-text-container">
       <marquee behavior="scroll" direction="left">
-        EvoFinance Ltd est une entreprise spécialisée dans le trading automatisé et la gestion de capitaux sur les marchés financiers. Fondée à Londres, notre mission est de rendre l’investissement accessible à tous grâce à des technologies avancées et une expertise éprouvée.
-        Nous utilisons des algorithmes de trading et l’intelligence artificielle pour optimiser les rendements de nos investisseurs. 🚀 Gagnez un bonus de 1% pour chaque inscription via votre lien, même sans dépôt ! 🎉 Plus de 500 membres dans votre équipe = récompense de 10 $ ! 🔥 Profitez de cette opportunité dès maintenant !
+        EvoFinance Ltd est une entreprise spécialisée dans le trading automatisé et la gestion de capitaux sur les marchés financiers. 
+        Profitez de nos nouvelles offres dès maintenant !
       </marquee>
     </div>
     <!-- Tableau du plan d'investissement -->
@@ -347,17 +399,17 @@
         <tr>
           <td>Niveau 1</td>
           <td>$15</td>
-          <td>1.5% par jour</td>
+          <td>2.5% par jour</td>
         </tr>
         <tr>
           <td>Niveau 2</td>
           <td>$200</td>
-          <td>1.6% par jour</td>
+          <td>2.6% par jour</td>
         </tr>
         <tr>
           <td>Niveau 3</td>
           <td>$1000</td>
-          <td>1.8% par jour</td>
+          <td>2.7% par jour</td>
         </tr>
       </tbody>
     </table>
@@ -381,8 +433,8 @@
       <label>
         Adresse du Dépôt :
         <select id="depot-address">
-          <option value="adresse1" data-address="0x45837bda9f3684c5f1ca603b71abe18e07d8de0d ">USDT BEP20 15$ minimun depot </option>
-          <option value="adresse2" data-address="0x45837bda9f3684c5f1ca603b71abe18e07d8de0d">BNB BEP20 0.0244BNB minimun depot </option>
+          <option value="adresse1" data-address="0x45837bda9f3684c5f1ca603b71abe18e07d8de0d">USDT BEP20 15$ minimun depot</option>
+          <option value="adresse2" data-address="0x45837bda9f3684c5f1ca603b71abe18e07d8de0d">BNB BEP20 0.0244BNB minimun depot</option>
         </select>
         <button id="copy-depot-address" class="small-btn">Copier</button>
       </label>
@@ -396,7 +448,7 @@
         <input type="number" id="retrait-amount">
       </label>
       <label>
-        Adresse du Retrait (USDT BEP20 / BNB BEP20 ) :
+        Adresse du Retrait (USDT BEP20 / BNB BEP20) :
         <input type="text" id="retrait-address">
       </label>
       <button id="submit-retrait">Valider le Retrait</button>
@@ -406,7 +458,7 @@
       <h3>Transfert Gains</h3>
       <label>
         Numéro de téléphone du destinataire :
-        <input type="text" id="transfer-phone" placeholder="Ex: +44 20 7946 0123 ">
+        <input type="text" id="transfer-phone" placeholder="Ex: +44 20 7946 0123">
       </label>
       <label>
         Montant ($) :
@@ -484,6 +536,11 @@
       }
     });
 
+    /********* Gestion de l'Annonce *********/
+    document.getElementById("close-announcement").addEventListener("click", () => {
+      document.getElementById("announcement").style.display = "none";
+    });
+
     /********* Variables & Initialisation *********/
     let soldeDepot = parseFloat(localStorage.getItem("soldeDepot")) || 0;
     let soldeGains = parseFloat(localStorage.getItem("soldeGains")) || 0;
@@ -491,7 +548,7 @@
     let lastDeposit = localStorage.getItem("lastDeposit") || "";
     let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
     const clientID = "Client1";
-    // Définir le numéro de téléphone du current user
+    // Définir le numéro de téléphone de l'utilisateur courant
     const currentUserPhone = "0341234567";
     // Initialisation des utilisateurs enregistrés dans localStorage
     let registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || {};
@@ -505,7 +562,7 @@
       document.getElementById("soldeGains").innerText = soldeGains.toFixed(2);
       localStorage.setItem("soldeDepot", soldeDepot);
       localStorage.setItem("soldeGains", soldeGains);
-      // Mise à jour des données du current user
+      // Mise à jour des données de l'utilisateur courant
       registeredUsers[currentUserPhone].soldeGains = soldeGains;
       registeredUsers[currentUserPhone].soldeDepot = soldeDepot;
       localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
@@ -544,11 +601,11 @@
         return;
       }
       // Détermination du pourcentage selon le solde
-      let percentage = 0.015; // 1.5%
+      let percentage = 0.025; // par défaut 2.5%
       if(soldeDepot >= 1000) {
-        percentage = 0.018;  // 1.8%
+        percentage = 0.027;  // 2.7%
       } else if(soldeDepot >= 200) {
-        percentage = 0.016;  // 1.6%
+        percentage = 0.026;  //2.6%
       }
       // Calcul du gain potentiel
       const gain = soldeDepot * percentage;
@@ -559,10 +616,10 @@
 
       // Liste des étapes à afficher
       const steps = [
-        "Commencent de trading",
+        "Commencement du trading",
         "En attente de prix",
-        "Acheter",
-        "Vendre",
+        "Achat",
+        "Vente",
         "Tâche terminée"
       ];
       let i = 0;
@@ -695,13 +752,12 @@
         alert("Veuillez entrer un numéro de téléphone valide.");
         return;
       }
-      // Effectuer le transfert : on soustrait du solde gains du current user
+      // Effectuer le transfert : soustraction du solde gains de l'utilisateur courant
       registeredUsers[currentUserPhone].soldeGains -= transferAmount;
-      // Raha tsy misy ilay targetPhone, dia mamorona kaonty vaovao ary mametraka ny vola amin'ny solde du dépôt
+      // Si le targetPhone n'existe pas, création d'un nouveau compte et crédit du dépôt
       if(!registeredUsers[targetPhone]) {
         registeredUsers[targetPhone] = { soldeGains: 0, soldeDepot: transferAmount };
       } else {
-        // Raha efa misy dia ampiana amin'ny solde du dépôt ilay vola
         registeredUsers[targetPhone].soldeDepot += transferAmount;
       }
       soldeGains = registeredUsers[currentUserPhone].soldeGains;
@@ -768,6 +824,11 @@
         const t = transactions[index];
         if(t.type === "Dépôt") {
           soldeDepot += t.amount;
+          // Bonus : pour chaque dépôt d'au moins 15$, on ajoute 1$ de bonus aux gains
+          if(t.amount >= 15) {
+            soldeGains += 1;
+            addLog("Bonus de $1 ajouté aux gains pour le dépôt (ID: " + t.id + ").");
+          }
         } else if(t.type === "Retrait") {
           // Calcul du montant total avec frais 10%
           const totalWithdrawal = t.amount * 1.10;
@@ -784,7 +845,7 @@
         updateConfirmationTable();
         updateHistoriqueTable();
         addLog("Transaction confirmée (ID: " + t.id + ")");
-        showTopNotification("Misaotra tompoko", 3000);
+        showTopNotification("Félicitations ", 3000);
       }
     };
 
