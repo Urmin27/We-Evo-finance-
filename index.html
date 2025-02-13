@@ -5,7 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evo-finance investissement</title>
   <style>
-    /* ---------- Styles Globaux ---------- */
+    /* ---------- Preloader CSS ---------- */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1a3b6e; /* même couleur que le background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    #preloader-content {
+      font-size: 1.2em; /* taille un peu réduite */
+      font-weight: bold;
+      color: #fff;
+      padding: 10px 20px;
+      border: 2px solid;
+      border-radius: 8px;
+      text-align: center;
+      animation: borderColorCycle 2s linear infinite;
+    }
+    @keyframes borderColorCycle {
+      0%   { border-color: #ff0000; }
+      25%  { border-color: #00ff00; }
+      50%  { border-color: #0000ff; }
+      75%  { border-color: #ff00ff; }
+      100% { border-color: #ff0000; }
+    }
+    .letter {
+      display: inline-block;
+      animation: colorCycle 2s linear infinite;
+    }
+    @keyframes colorCycle {
+      0%   { color: #ff0000; }
+      25%  { color: #ff7f00; }
+      50%  { color: #ffff00; }
+      75%  { color: #00ff00; }
+      100% { color: #0000ff; }
+    }
+    
+    /* ---------- Styles Globaux de la Page d'Accueil ---------- */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -71,7 +114,7 @@
     #upload-btn:hover {
       background-color: #e68900;
     }
-    /* ---------- Service Client (sur le côté droit de la page) ---------- */
+    /* ---------- Service Client ---------- */
     #service-client {
       position: fixed;
       top: 50%;
@@ -130,7 +173,6 @@
       border: none;
       margin-top: 5px;
     }
-    /* Bouton petit pour copier l'adresse */
     .small-btn {
       font-size: 0.8em;
       padding: 5px 10px;
@@ -367,6 +409,54 @@
   </style>
 </head>
 <body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div id="preloader-content"></div>
+  </div>
+
+  <!-- Preloader Script -->
+  <script>
+    const texts = [
+      { text: "EVO FINANCE TRADING", duration: 8000 },
+      { text: "EVO FINANCE INVESTISSEMENT", duration: 5000 },
+      { text: "BIENVENUE", duration: 5000 }
+    ];
+    let currentText = 0;
+    const preloaderContent = document.getElementById("preloader-content");
+    function generateLetterSpans(text) {
+      let html = "";
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        if (char === " ") {
+          html += "&nbsp;";
+        } else {
+          html += `<span class="letter" style="animation-delay: ${i * 0.1}s;">${char}</span>`;
+        }
+      }
+      return html;
+    }
+    function showText(index) {
+      const current = texts[index];
+      preloaderContent.innerHTML = generateLetterSpans(current.text);
+      setTimeout(() => {
+        currentText++;
+        if (currentText < texts.length) {
+          showText(currentText);
+        } else {
+          // Fade-out le preloader et affiche la page d'accueil
+          document.getElementById("preloader").style.opacity = "0";
+          setTimeout(() => {
+            document.getElementById("preloader").style.display = "none";
+          }, 500);
+        }
+      }, current.duration);
+    }
+    window.addEventListener("load", function(){
+      showText(0);
+    });
+  </script>
+
+  <!-- Contenu de la page d'accueil -->
   <!-- Bouton Menu (Three Dots) -->
   <div id="menu-button">⋮</div>
   
@@ -551,7 +641,6 @@
     <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
   </div>
 
-  
   <!-- ========= Section 4 : Historique ========= -->
   <section class="historique" id="section-historique">
     <h2>Historique des Transactions</h2>
