@@ -784,6 +784,7 @@
       ];
       let i = 0;
       function showStep() {
+        
         tradingStepsDiv.innerHTML += "<p>" + steps[i] + "</p>";
         i++;
         if(i < steps.length) { setTimeout(showStep, 3000); }
@@ -926,7 +927,7 @@
     /********* Section 3 : Confirmation *********/
     document.getElementById("access-confirmation").addEventListener("click", function(){
       const code = prompt("Veuillez entrer le code d'accès :");
-      if(code === "0808"){
+      if(code === "1234"){
         document.getElementById("confirmation-area").style.display = "block";
         updateConfirmationTable();
       } else {
