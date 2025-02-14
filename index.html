@@ -20,7 +20,7 @@
       transition: opacity 0.5s ease;
     }
     #preloader-content {
-      font-size: 1.2em; /* taille un peu réduite */
+      font-size: 1.2em; /* taille réduite */
       font-weight: bold;
       color: #fff;
       padding: 10px 20px;
@@ -47,14 +47,15 @@
       75%  { color: #00ff00; }
       100% { color: #0000ff; }
     }
-    
-    /* ---------- Styles Globaux de la Page d'Accueil ---------- */
+
+    /* ---------- Styles Globaux de la Page d'Accueil (votre code existant) ---------- */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #1a3b6e;
       color: #fff;
       padding: 20px;
+      overflow-x: hidden;
     }
     h1, h2, h3 {
       text-align: center;
@@ -114,7 +115,7 @@
     #upload-btn:hover {
       background-color: #e68900;
     }
-    /* ---------- Service Client ---------- */
+    /* ---------- Service Client (sur le côté droit de la page) ---------- */
     #service-client {
       position: fixed;
       top: 50%;
@@ -258,8 +259,7 @@
     #side-menu a:hover {
       text-decoration: underline;
     }
-    
-    /* ---------- Styles Additionnels ---------- */
+    /* ---------- Autres Styles Additionnels ---------- */
     body {
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(135deg, #1e3c72, #2a5298);
@@ -416,25 +416,38 @@
 
   <!-- Preloader Script -->
   <script>
+    // La séquence à afficher avec les durées en millisecondes
     const texts = [
-      { text: "EVO FINANCE TRADING", duration: 8000 },
-      { text: "EVO FINANCE INVESTISSEMENT", duration: 5000 },
+      { text: "EVO TRADING", duration: 5000 },
+      { text: "EVO INVESTISSEMENT", duration: 5000 },
+      { text: "Pour tous nos utilisateurs, suite à vos demandes, nous avons décidé d’augmenter les gains de notre plan de trading. Voici les nouveaux taux :<br><br>Niveau 1 : 2,5% de gains par jour<br>Niveau 2 : 2,6% de gains par jour<br>Niveau 3 : 2,7% de gains par jour<br><br>De plus, lors de chaque dépôt d’au moins 15$, vous recevrez immédiatement un bonus de 1$, qui pourra être retiré le lundi.<br><br>Plan d’investissement par contrat :<br>Vous pouvez également investir via des contrats. Par exemple :<br><br>Investissement de 2,5$ : contrat de 30 jours – Gain total de 5% (retrait du capital et des gains à l’issue du contrat).<br>Investissement de 200$ : contrat de 3 mois – Gain de 5,5%.<br>Investissement de 500$ et plus : contrat de 6 mois – Gain de 6,5%.", duration: 40000 },
       { text: "BIENVENUE", duration: 5000 }
     ];
     let currentText = 0;
     const preloaderContent = document.getElementById("preloader-content");
+
     function generateLetterSpans(text) {
       let html = "";
-      for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-        if (char === " ") {
-          html += "&nbsp;";
+      let i = 0;
+      while (i < text.length) {
+        if (text[i] === "<") {
+          let j = text.indexOf(">", i);
+          if (j === -1) j = i;
+          html += text.substring(i, j+1);
+          i = j + 1;
         } else {
-          html += `<span class="letter" style="animation-delay: ${i * 0.1}s;">${char}</span>`;
+          const char = text[i];
+          if (char === " ") {
+            html += "&nbsp;";
+          } else {
+            html += `<span class="letter" style="animation-delay: ${i * 0.05}s;">${char}</span>`;
+          }
+          i++;
         }
       }
       return html;
     }
+
     function showText(index) {
       const current = texts[index];
       preloaderContent.innerHTML = generateLetterSpans(current.text);
@@ -443,7 +456,7 @@
         if (currentText < texts.length) {
           showText(currentText);
         } else {
-          // Fade-out le preloader et affiche la page d'accueil
+          // Fin de la séquence, fade-out du preloader et affichage de la page d'accueil
           document.getElementById("preloader").style.opacity = "0";
           setTimeout(() => {
             document.getElementById("preloader").style.display = "none";
@@ -456,7 +469,7 @@
     });
   </script>
 
-  <!-- Contenu de la page d'accueil -->
+  <!-- CONTENU DE LA PAGE D'ACCUEIL -->
   <!-- Bouton Menu (Three Dots) -->
   <div id="menu-button">⋮</div>
   
@@ -664,7 +677,7 @@
   <!-- Journal des Notifications -->
   <div id="notification-log"></div>
 
-  <!-- ========== Script JavaScript ========== -->
+  <!-- ========== Script JavaScript (reste de votre code d'accueil) ========== -->
   <script>
     /********* Toggle Menu *********/
     const menuButton = document.getElementById("menu-button");
