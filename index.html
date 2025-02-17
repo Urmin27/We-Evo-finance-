@@ -5,6 +5,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evo-finance investissement</title>
   <style>
+    /* Style général */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      padding-bottom: 70px; /* espace pour la nav en bas */
+    }
+    h1, h2, h3 {
+      margin: 0 0 10px;
+    }
+    p {
+      line-height: 1.5;
+    }
+    /* Préloader */
+    #preloader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #333;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    #preloader-content {
+      color: #fff;
+      font-size: 24px;
+    }
+    /* Sections de contenu */
+    section {
+      display: none;
+      /* Fond bleu clair (non blanc) */
+      background: black ;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    section.active {
+      display: block;
+    }
+    /* Navigation par onglets en bas */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #333;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 60px;
+      z-index: 1000;
+    }
+    .bottom-nav button {
+      flex: 1;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .bottom-nav button:hover {
+      background: #444;
+    }
+    .bottom-nav button.active {
+      background: black ;
+      font-weight: bold;
+    }
+    /* Style des formulaires et tables */
+    .form-container {
+      margin: 20px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f8f8f8;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      background: #007BFF;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    /* Annonce */
+    #announcement {
+      background: #fffae6;
+      padding: 15px;
+      margin: 20px;
+      border: 1px solid #e6e6e6;
+      border-radius: 8px;
+    }
+    /* Autres ajustements */
+    #side-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #side-menu ul li {
+      margin: 10px 0;
+    }
+    #side-menu ul li a {
+      text-decoration: none;
+      color: #007BFF;
+    }
+    
+    
+    
+    
+    
+    
+   
     /* ---------- Preloader CSS ---------- */
     #preloader {
       position: fixed;
@@ -406,6 +537,7 @@
       cursor: pointer;
       font-weight: bold;
     }
+ 
   </style>
 </head>
 <body>
@@ -480,7 +612,7 @@
       <li><a href="https://evo-finance-depot.vercel.app/" target="_blank">Demande de dépôt</a></li>
       <li><a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank">Besoin d'aide</a></li>
       <li><a href="https://example.com/profil-entreprise" target="_blank">Profil de l'entreprise</a></li>
-      <li><a href="https://plan-de-travail.vercel.app/" target="_blank">plan d'investissement</a></li>
+      <li><a href="https://plan-de-travail.vercel.app/" target="_blank">Plan d'investissement</a></li>
       <li><a href="https://eq-seven.vercel.app/" target="_blank">Investissement longue durée</a></li>
       <li><a href="https://evo-finance-quipe-ivl7.vercel.app/?ref=ABC123" target="_blank">Se déconnecter</a></li>
     </ul>
@@ -570,6 +702,17 @@
         </tr>
       </tbody>
     </table>
+    
+     <!-- Section Extra : Liens vers d'autres pages -->
+  <div id="extra-sections">
+    <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
+    <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
+    <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
+    <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
+    <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
+    <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
+    <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
+  </div>
   </section>
 
   <!-- ========= Section 2 : Transactions ========= -->
@@ -590,7 +733,7 @@
         Adresse du Dépôt :
         <select id="depot-address">
           <option value="adresse1" data-address="0x45837bda9f3684c5f1ca603b71abe18e07d8de0d">USDT BEP20 15$ minimun depot</option>
-          <option value="adresse2" data-address="0x45837bda9f3684c5f1ca603b71abe18e07d8de0d">BNB BEP20 0.0244BNB minimun depot</option>
+          <option value="adresse2" data-address="P1114188343">PAYEER </option>
         </select>
         <button id="copy-depot-address" class="small-btn">Copier</button>
       </label>
@@ -603,7 +746,7 @@
         <input type="number" id="retrait-amount">
       </label>
       <label>
-        Adresse du Retrait (USDT BEP20 / BNB BEP20) :
+        Adresse du Retrait (USDT BEP20 / PAYEER ) :
         <input type="text" id="retrait-address">
       </label>
       <button id="submit-retrait">Valider le Retrait</button>
@@ -620,14 +763,27 @@
       </label>
       <button id="submit-transfert">Valider le Transfert</button>
     </div>
+    
+    
+     <!-- Section Extra : Liens vers d'autres pages -->
+  <div id="extra-sections">
+    <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
+    <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
+    <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
+    <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
+    <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
+    <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
+    <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
+  </div>
   </section>
 
   <!-- ========= Section 3 : Confirmation ========= -->
-  <section class="confirmation" id="section-confirmation">
+  <section id="section-confirmation">
     <h2>Tableau de Confirmation</h2>
-    <button id="access-confirmation">Accéder au Tableau de Confirmation</button>
-    <div id="confirmation-area" style="display:none;">
-      <table id="confirmation-table">
+    <!-- Confirmation Retrait -->
+    <button id="access-confirmation-retrait">Accéder au Tableau de Confirmation Retrait</button>
+    <div id="confirmation-area-retrait" style="display:none;">
+      <table id="confirmation-table-retrait">
         <thead>
           <tr>
             <th>ID</th>
@@ -641,9 +797,26 @@
         <tbody></tbody>
       </table>
     </div>
-  </section>
-  
-  <!-- Section Extra : Liens vers d'autres pages -->
+    <!-- Confirmation Dépôt -->
+    <button id="access-confirmation-depot">Accéder au Tableau de Confirmation Dépôt</button>
+    <div id="confirmation-area-depot" style="display:none;">
+      <table id="confirmation-table-depot">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Type</th>
+            <th>Montant</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    
+    
+     <!-- Section Extra : Liens vers d'autres pages -->
   <div id="extra-sections">
     <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
     <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
@@ -653,9 +826,10 @@
     <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
     <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
   </div>
-
+  </section>
+  
   <!-- ========= Section 4 : Historique ========= -->
-  <section class="historique" id="section-historique">
+  <section id="section-historique">
     <h2>Historique des Transactions</h2>
     <table id="historique-table">
       <thead>
@@ -670,6 +844,17 @@
       </thead>
       <tbody></tbody>
     </table>
+    
+     <!-- Section Extra : Liens vers d'autres pages -->
+  <div id="extra-sections">
+    <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
+    <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
+    <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
+    <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
+    <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
+    <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
+    <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
+  </div>
   </section>
 
   <!-- Zone de Notification Centrée -->
@@ -677,7 +862,8 @@
   <!-- Journal des Notifications -->
   <div id="notification-log"></div>
 
-  <!-- ========== Script JavaScript (reste de votre code d'accueil) ========== -->
+
+  <!-- ========== Script JavaScript (fonctionnalités existantes) ========== -->
   <script>
     /********* Toggle Menu *********/
     const menuButton = document.getElementById("menu-button");
@@ -784,7 +970,6 @@
       ];
       let i = 0;
       function showStep() {
-        
         tradingStepsDiv.innerHTML += "<p>" + steps[i] + "</p>";
         i++;
         if(i < steps.length) { setTimeout(showStep, 3000); }
@@ -925,33 +1110,65 @@
     });
 
     /********* Section 3 : Confirmation *********/
-    document.getElementById("access-confirmation").addEventListener("click", function(){
-      const code = prompt("Veuillez entrer le code d'accès :");
-      if(code === "1234"){
-        document.getElementById("confirmation-area").style.display = "block";
-        updateConfirmationTable();
+    // Confirmation Retrait
+    document.getElementById("access-confirmation-retrait").addEventListener("click", function(){
+      const code = prompt("Veuillez entrer le code d'accès pour confirmation retrait :");
+      if(code === "080600"){
+        document.getElementById("confirmation-area-retrait").style.display = "block";
+        updateConfirmationTableRetrait();
       } else {
         alert("Code incorrect !");
       }
     });
-    function updateConfirmationTable() {
-      const tbody = document.querySelector("#confirmation-table tbody");
+    // Confirmation Dépôt
+    document.getElementById("access-confirmation-depot").addEventListener("click", function(){
+      const code = prompt("Veuillez entrer le code d'accès pour confirmation dépôt :");
+      if(code === "206800"){
+        document.getElementById("confirmation-area-depot").style.display = "block";
+        updateConfirmationTableDepot();
+      } else {
+        alert("Code incorrect !");
+      }
+    });
+    function updateConfirmationTableRetrait() {
+      const tbody = document.querySelector("#confirmation-table-retrait tbody");
       tbody.innerHTML = "";
-      transactions.filter(t => t.status === "En attente").forEach(t => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${t.id}</td>
-          <td>${t.client}</td>
-          <td>${t.type}</td>
-          <td>$${t.amount.toFixed(2)}</td>
-          <td>${t.date}</td>
-          <td>
-            <button onclick="confirmTx(${t.id})">Confirmer</button>
-            <button onclick="cancelTx(${t.id})">Annuler</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
+      transactions.filter(t => t.status === "En attente" && t.type === "Retrait")
+        .forEach(t => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${t.id}</td>
+            <td>${t.client}</td>
+            <td>${t.type}</td>
+            <td>$${t.amount.toFixed(2)}</td>
+            <td>${t.date}</td>
+            <td>
+              <button onclick="confirmTx(${t.id})">Confirmer</button>
+              <button onclick="cancelTx(${t.id})">Annuler</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+    }
+    function updateConfirmationTableDepot() {
+      const tbody = document.querySelector("#confirmation-table-depot tbody");
+      tbody.innerHTML = "";
+      transactions.filter(t => t.status === "En attente" && t.type === "Dépôt")
+        .forEach(t => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${t.id}</td>
+            <td>${t.client}</td>
+            <td>${t.type}</td>
+            <td>$${t.amount.toFixed(2)}</td>
+            <td>${t.date}</td>
+            <td>
+              <button onclick="confirmTx(${t.id})">Confirmer</button>
+              <button onclick="cancelTx(${t.id})">Annuler</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
     }
 
     /********* Section 4 : Historique *********/
@@ -995,21 +1212,30 @@
             localStorage.setItem("transactions", JSON.stringify(transactions));
           }
         } else if(t.type === "Retrait") {
-          const totalWithdrawal = t.amount * 1.10;
-          if(soldeGains >= totalWithdrawal) {
-            soldeGains -= totalWithdrawal;
+          const originalAmount = t.amount;
+          const fee = originalAmount * 0.10;
+          const netWithdrawal = originalAmount - fee;
+          if(soldeGains >= originalAmount) {
+            soldeGains -= originalAmount;
           } else {
-            alert("Solde des gains insuffisant pour ce retrait (incluant 10% de frais).");
+            alert("Solde des gains insuffisant pour ce retrait.");
             return;
           }
+          t.fee = fee;
+          t.amount = netWithdrawal;
         }
         t.status = "Confirmé";
         localStorage.setItem("transactions", JSON.stringify(transactions));
         updateBalances();
-        updateConfirmationTable();
+        updateConfirmationTableDepot();
+        updateConfirmationTableRetrait();
         updateHistoriqueTable();
         addLog("Transaction confirmée (ID: " + t.id + ")");
-        showTopNotification("Félicitation, vous avez gagné une bonus de 1$", 3000);
+        if(t.type === "Dépôt") {
+          showTopNotification("Dépôt confirmé et bonus si applicable.", 3000);
+        } else if(t.type === "Retrait") {
+          showTopNotification("Retrait confirmé. Montant net: $" + t.amount.toFixed(2), 3000);
+        }
       }
     };
 
@@ -1019,7 +1245,8 @@
         const t = transactions[index];
         t.status = "Annulé";
         localStorage.setItem("transactions", JSON.stringify(transactions));
-        updateConfirmationTable();
+        updateConfirmationTableDepot();
+        updateConfirmationTableRetrait();
         updateHistoriqueTable();
         addLog("Transaction annulée (ID: " + t.id + ")");
       }
@@ -1027,6 +1254,34 @@
 
     /********* Mise à jour au chargement *********/
     updateHistoriqueTable();
+
+    /********* Navigation par Sections *********/
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll("section");
+      sections.forEach(section => {
+        section.classList.remove("active");
+      });
+      document.getElementById(sectionId).classList.add("active");
+      
+      // Mettre à jour l'état des boutons de la nav en bas
+      const buttons = document.querySelectorAll(".bottom-nav button");
+      buttons.forEach(btn => {
+        btn.classList.remove("active");
+      });
+      document.querySelector(`.bottom-nav button[data-section="${sectionId}"]`).classList.add("active");
+    }
+
+    document.addEventListener("DOMContentLoaded", function(){
+      showSection("section-solde");
+    });
   </script>
+
+  <!-- Navigation par onglets en bas -->
+  <div class="bottom-nav">
+    <button data-section="section-solde" onclick="showSection('section-solde')">Solde & Trading</button>
+    <button data-section="section-transaction" onclick="showSection('section-transaction')">Transactions</button>
+    <button data-section="section-confirmation" onclick="showSection('section-confirmation')">Confirmation</button>
+    <button data-section="section-historique" onclick="showSection('section-historique')">Historique</button>
+  </div>
 </body>
 </html>
