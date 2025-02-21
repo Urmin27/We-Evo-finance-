@@ -1,10 +1,117 @@
-CNN <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evo-finance investissement</title>
   <style>
+    /* CSS efa nisy */
+    
+    /* Fanamboarana ny layout horizontal ho an'ny sections */
+    .sections-container {
+      display: flex;
+      flex-wrap: nowrap; /* Raha tianao dia azo atao wrap */
+      justify-content: space-between;
+      overflow-x: auto; /* Raha be loatra ny sections dia azo scroll-na */
+      padding: 10px;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+  /* Animation de changement de couleur pour l'annonce centrale */
+    @keyframes colorChange {
+      0% { background-color: #ff4d4d; }
+      50% { background-color: #ffcc00; }
+      100% { background-color: #ff4d4d; }
+    }
+    /* Style pour l'annonce centrale (affichée au centre) */
+    #trading-capacity-announcement {
+      animation: colorChange 3s infinite;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      border: 3px solid white;
+      box-sizing: border-box;
+      max-width: 90%;
+    }
+    #trading-capacity-announcement a {
+      color: white;
+      text-decoration: underline;
+    }
+    #trading-capacity-announcement button.close-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+    }
+    /* Style pour l'annonce secondaire (intégrée au contenu) */
+    #announcement {
+      position: relative;
+      padding: 15px;
+      margin: 20px;
+      border: 2px solid #333;
+      background-color: #f8f8f8;
+    }
+    #announcement h2 {
+      margin-top: 0;
+    }
+    #announcement span.close-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+    /* Style du préchargeur (splash screen) */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    /* Exemple de style pour la navigation en bas */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #eee;
+      text-align: center;
+      padding: 10px 0;
+    }
+    .bottom-nav button {
+      margin: 0 5px;
+      padding: 5px 10px;
+    }
+    /* Vous pouvez ajouter ici d'autres styles nécessaires */
+    
+    
+    
+    
+    
+    
     /* Style général */
     body {
       margin: 0;
@@ -537,18 +644,601 @@ CNN <!DOCTYPE html>
       cursor: pointer;
       font-weight: bold;
     }
- 
-  </style>
+    /* Style général */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      padding-bottom: 70px; /* espace pour la nav en bas */
+    }
+    h1, h2, h3 {
+      margin: 0 0 10px;
+    }
+    p {
+      line-height: 1.5;
+    }
+    /* Préloader */
+    #preloader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #333;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    #preloader-content {
+      color: #fff;
+      font-size: 24px;
+    }
+    /* Sections de contenu */
+    section {
+      display: none;
+      /* Fond bleu clair (non blanc) */
+      background: black ;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    section.active {
+      display: block;
+    }
+    /* Navigation par onglets en bas */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #333;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 60px;
+      z-index: 1000;
+    }
+    .bottom-nav button {
+      flex: 1;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .bottom-nav button:hover {
+      background: #444;
+    }
+    .bottom-nav button.active {
+      background: black ;
+      font-weight: bold;
+    }
+    /* Style des formulaires et tables */
+    .form-container {
+      margin: 20px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: black ;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      background: #007BFF;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    /* Annonce */
+    #announcement {
+      background: #fffae6;
+      padding: 15px;
+      margin: 20px;
+      border: 1px solid #e6e6e6;
+      border-radius: 8px;
+    }
+    /* Autres ajustements */
+    #side-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #side-menu ul li {
+      margin: 10px 0;
+    }
+    #side-menu ul li a {
+      text-decoration: none;
+      color: #007BFF;
+    }
+    
+    
+    
+    
+    
+    
+   
+    /* ---------- Preloader CSS ---------- */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1a3b6e; /* même couleur que le background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    #preloader-content {
+      font-size: 1.2em; /* taille réduite */
+      font-weight: bold;
+      color: #fff;
+      padding: 10px 20px;
+      border: 2px solid;
+      border-radius: 8px;
+      text-align: center;
+      animation: borderColorCycle 2s linear infinite;
+    }
+    @keyframes borderColorCycle {
+      0%   { border-color: #ff0000; }
+      25%  { border-color: #00ff00; }
+      50%  { border-color: #0000ff; }
+      75%  { border-color: #ff00ff; }
+      100% { border-color: #ff0000; }
+    }
+    .letter {
+      display: inline-block;
+      animation: colorCycle 2s linear infinite;
+    }
+    @keyframes colorCycle {
+      0%   { color: #ff0000; }
+      25%  { color: #ff7f00; }
+      50%  { color: #ffff00; }
+      75%  { color: #00ff00; }
+      100% { color: #0000ff; }
+    }
+
+    /* ---------- Styles Globaux de la Page d'Accueil (votre code existant) ---------- */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #1a3b6e;
+      color: #fff;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 {
+      text-align: center;
+    }
+    button {
+      cursor: pointer;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff9800;
+      color: #fff;
+      font-weight: bold;
+      margin: 5px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #e68900;
+    }
+    table {
+      width: 90%;
+      margin: 10px auto;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.1);
+    }
+    table, th, td {
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+    /* ---------- Profil (en haut à droite) ---------- */
+    #profile-container {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      text-align: center;
+      z-index: 1300;
+    }
+    #profile-pic {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+    }
+    #upload-btn {
+      margin-top: 5px;
+      background-color: #ff9800;
+      border: none;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8em;
+      cursor: pointer;
+    }
+    #upload-btn:hover {
+      background-color: #e68900;
+    }
+    /* ---------- Service Client (sur le côté droit de la page) ---------- */
+    #service-client {
+      position: fixed;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1300;
+      border: 2px solid #fff;
+      overflow: hidden;
+    }
+    #service-client img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* ---------- Section 1 : Solde & Trading ---------- */
+    #section-solde {
+      margin-bottom: 40px;
+    }
+    #section-solde p {
+      font-size: 1.2em;
+    }
+    #investment-plan {
+      margin-top: 20px;
+    }
+    /* Div pour les étapes de trading */
+    #trading-steps {
+      text-align: center;
+      margin-top: 10px;
+    }
+    /* ---------- Section 2 : Transactions ---------- */
+    #section-transaction {
+      margin-bottom: 40px;
+    }
+    .form-container {
+      display: none;
+      margin: 10px auto;
+      padding: 15px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 8px;
+      width: 90%;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    input[type="number"],
+    input[type="text"],
+    select {
+      width: 95%;
+      padding: 5px;
+      border-radius: 3px;
+      border: none;
+      margin-top: 5px;
+    }
+    .small-btn {
+      font-size: 0.8em;
+      padding: 5px 10px;
+      margin-left: 5px;
+    }
+    /* ---------- Zone de Notification Centrée ---------- */
+    #center-notification {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.85);
+      padding: 20px 30px;
+      border-radius: 10px;
+      z-index: 1100;
+      font-size: 1.2em;
+      text-align: center;
+    }
+    /* ---------- Zone de Notification en Haut ---------- */
+    #top-notification {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.85);
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 1100;
+      font-size: 1.2em;
+    }
+    /* ---------- Journal des Notifications ---------- */
+    #notification-log {
+      max-height: 150px;
+      overflow-y: auto;
+      border: 1px solid #fff;
+      padding: 10px;
+      margin: 20px auto;
+      width: 90%;
+      background: rgba(0,0,0,0.5);
+      font-size: 0.9em;
+    }
+    /* ---------- Sections 3 & 4 : Confirmation & Historique ---------- */
+    section.confirmation, section.historique {
+      margin-bottom: 40px;
+    }
+    /* ---------- Menu Three Dots ---------- */
+    #menu-button {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1200;
+      background: rgba(0,0,0,0.7);
+      padding: 5px 10px;
+      border-radius: 50%;
+    }
+    #side-menu {
+      display: none;
+      position: fixed;
+      top: 50px;
+      left: 10px;
+      background: rgba(0,0,0,0.7);
+      padding: 10px;
+      border-radius: 5px;
+      z-index: 1200;
+    }
+    #side-menu ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    #side-menu li {
+      margin: 5px 0;
+    }
+    #side-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+    #side-menu a:hover {
+      text-decoration: underline;
+    }
+    /* ---------- Autres Styles Additionnels ---------- */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 700;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+    .header-img {
+      display: block;
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      animation: fadeIn 2s ease-in-out;
+      border-bottom: 5px solid #fff;
+    }
+    #nav-buttons {
+      text-align: center;
+      margin: 20px 0;
+    }
+    #nav-buttons .button {
+      background-color: #ff9800;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 25px;
+      font-weight: 700;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+    #nav-buttons .button:hover {
+      transform: scale(1.1);
+      background-color: #e68900;
+    }
+    #mining-section, #transactions-section, #trading-section {
+      background: rgba(255,255,255,0.1);
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      animation: slideIn 1s ease-out;
+    }
+    h3 {
+      margin-top: 20px;
+      font-weight: 700;
+    }
+    .link-button {
+      display: inline-block;
+      background-color: #ff5c1c;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      margin: 10px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    .link-button:hover {
+      transform: scale(1.1);
+      background-color: #e44d12;
+    }
+    #extra-sections {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    input[type="number"], input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.2);
+      margin-top: 20px;
+      animation: fadeIn 1s ease-in;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    th {
+      background-color: rgba(0,0,0,0.3);
+      font-weight: 700;
+    }
+    #notification {
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 20px;
+    }
+    #mining-notification {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    /* ---------- Style de l'Annonce ---------- */
+    #announcement {
+      background-color: #fff;
+      color: #000;
+      padding: 20px 30px;
+      border-radius: 8px;
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: left;
+      font-size: 1.1em;
+      line-height: 1.5;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    /* Bouton fermer (X) dans l'annonce */
+    #close-announcement {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 1.5em;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    
+    
+    
+   /* Container mitazona ny rohy ho grid */
+#extra-sections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+  background: #f0f0f0;
+}
+
+/* Style ho an'ny rohy */
+.link-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background-color: #0077cc;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+  min-height: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.5); /* Border kelikely */
+}
+
+.link-button:hover {
+  background-color: #005fa3;
+  transform: translateY(-3px);
+}
+
+.link-button:active {
+  background-color: #004e8a;
+  transform: translateY(0);
+}
+
+/* Raha misy rohy fahafito, andahatra ho eo afovoany izy io */
+#extra-sections a:nth-child(7) {
+  grid-column: 2;
+}  
+      </style>
 </head>
 <body>
-  <!-- Preloader -->
+  <!-- Préchargeur -->
   <div id="preloader">
     <div id="preloader-content"></div>
   </div>
 
-  <!-- Preloader Script -->
+  <!-- Annonce Centrale (Trading Capacity) - Supprimable -->
+  <div id="trading-capacity-announcement">
+    La capacité maximale pour le trading automatisé est atteinte.<br>
+    Si vous n'êtes pas encore inscrit, nous vous invitons à rejoindre notre communauté pour profiter de nos offres exclusives.<br>
+    Pour investir, veuillez rejoindre notre 
+    <a href="https://plan-de-travail.vercel.app/" target="_blank">Plan d'investissement</a>.
+    <button class="close-btn" onclick="document.getElementById('trading-capacity-announcement').style.display='none'">&times;</button>
+  </div>
+
+  <!-- Script du Préchargeur -->
   <script>
-    // La séquence à afficher avec les durées en millisecondes
+    // Séquence de textes pour le préchargeur (affichage lettre par lettre)
     const texts = [
       { text: "EVO TRADING", duration: 5000 },
       { text: "EVO INVESTISSEMENT", duration: 5000 },
@@ -588,7 +1278,7 @@ CNN <!DOCTYPE html>
         if (currentText < texts.length) {
           showText(currentText);
         } else {
-          // Fin de la séquence, fade-out du preloader et affichage de la page d'accueil
+          // Fin de la séquence : fade-out du préchargeur et affichage du contenu
           document.getElementById("preloader").style.opacity = "0";
           setTimeout(() => {
             document.getElementById("preloader").style.display = "none";
@@ -601,23 +1291,12 @@ CNN <!DOCTYPE html>
     });
   </script>
 
-     <!-- Start of LiveChat (www.livechat.com) code -->
-<script>
-    window.__lc = window.__lc || {};
-    window.__lc.license = 19042465;
-    window.__lc.integration_name = "manual_channels";
-    window.__lc.product_name = "livechat";
-    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
-</script>
-<noscript><a href="https://www.livechat.com/chat-with/19042465/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
-<!-- End of LiveChat code -->
-
-
   <!-- CONTENU DE LA PAGE D'ACCUEIL -->
-  <!-- Bouton Menu (Three Dots) -->
+
+  <!-- Bouton Menu -->
   <div id="menu-button">⋮</div>
   
-  <!-- Sidebar Menu (caché par défaut) -->
+  <!-- Sidebar Menu -->
   <div id="side-menu">
     <ul>
       <li><a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank">Demande de retrait</a></li>
@@ -633,7 +1312,7 @@ CNN <!DOCTYPE html>
   <!-- Notification en Haut -->
   <div id="top-notification"></div>
   
-  <!-- Profil (en haut à droite) -->
+  <!-- Gestion du Profil -->
   <div id="profile-container">
     <img id="profile-pic" src="https://via.placeholder.com/60?text=Profil" alt="Photo de profil">
     <br>
@@ -641,15 +1320,16 @@ CNN <!DOCTYPE html>
     <input type="file" id="file-input" accept="image/*" style="display:none;">
   </div>
 
-  <!-- Service Client (sur le côté droit, centré verticalement) -->
-   <div id="service-client">
-    <img src="https://img.icons8.com/color/96/000000/customer-support.png" alt="Service Client"></div>
+  <!-- Service Client -->
+  <div id="service-client">
+    <img src="https://img.icons8.com/color/96/000000/customer-support.png" alt="Service Client">
+  </div>
 
   <h1>EVO-FINANCE</h1>
   
-  <!-- === Section Annonce === -->
+  <!-- Annonce Secondaire (intégrée au contenu) - Supprimable -->
   <div id="announcement">
-    <span id="close-announcement">&times;</span>
+    <span class="close-btn" id="close-announcement">&times;</span>
     <h2 style="text-align:center; margin-top:0;">Annonce Importante</h2>
     <p>
       Pour tous nos utilisateurs, suite à vos demandes, nous avons décidé d’augmenter les gains de notre plan de trading.
@@ -675,206 +1355,183 @@ CNN <!DOCTYPE html>
     </ul>
   </div>
 
-  <!-- ========= Section 1 : Solde & Trading ========= -->
-  <section id="section-solde">
-    <h2>Solde du Dépôt et Solde des Gains</h2>
-    <p>Dépôt : $<span id="soldeDepot">0.00</span></p>
-    <p>Gains : $<span id="soldeGains">0.00</span></p>
-    <button id="start-trading">Commencer à Trading</button>
-    <div id="trading-steps"></div>
-    <div class="scrolling-text-container">
-      <marquee behavior="scroll" direction="left">
-        EvoFinance Ltd est une entreprise spécialisée dans le trading automatisé et la gestion de capitaux sur les marchés financiers. Profitez de nos nouvelles offres dès maintenant !
-      </marquee>
-    </div>
-    <table id="investment-plan">
-      <thead>
-        <tr>
-          <th>Niveau</th>
-          <th>Dépôt Minimum</th>
-          <th>Gains Quotidien</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Niveau 1</td>
-          <td>$15</td>
-          <td>2.5% par jour</td>
-        </tr>
-        <tr>
-          <td>Niveau 2</td>
-          <td>$200</td>
-          <td>2.6% par jour</td>
-        </tr>
-        <tr>
-          <td>Niveau 3</td>
-          <td>$1000</td>
-          <td>2.7% par jour</td>
-        </tr>
-      </tbody>
-    </table>
-    
-     <!-- Section Extra : Liens vers d'autres pages -->
-  <div id="extra-sections">
-    <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
-    <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
-    <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
-    <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
-    <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
-    <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
-    <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
-  </div>
-  </section>
-
-  <!-- ========= Section 2 : Transactions ========= -->
-  <section id="section-transaction">
-    <h2>Transactions</h2>
-    <div style="text-align:center;">
-      <button id="btn-depot">Dépôt</button>
-      <button id="btn-retrait">Retrait</button>
-      <button id="btn-transfert">Transfert Gains</button>
-    </div>
-    <div id="form-depot" class="form-container">
-      <h3>Dépôt</h3>
-      <label>
-        Montant ($) :
-        <input type="number" id="depot-amount">
-      </label>
-      <label>
-        Adresse du Dépôt :
-        <select id="depot-address">
-          <option value="adresse1" data-address="0x45837bda9f3684c5f1ca603b71abe18e07d8de0d">USDT BEP20 15$ minimun depot</option>
-          <option value="adresse2" data-address="P1114188343">PAYEER </option>
-        </select>
-        <button id="copy-depot-address" class="small-btn">Copier</button>
-      </label>
-      <button id="submit-depot">Valider le Dépôt</button>
-    </div>
-    <div id="form-retrait" class="form-container">
-      <h3>Retrait</h3>
-      <label>
-        Montant ($) :
-        <input type="number" id="retrait-amount">
-      </label>
-      <label>
-        Adresse du Retrait (USDT BEP20 / PAYEER ) :
-        <input type="text" id="retrait-address">
-      </label>
-      <button id="submit-retrait">Valider le Retrait</button>
-    </div>
-    <div id="form-transfert" class="form-container">
-      <h3>Transfert Gains</h3>
-      <label>
-        Numéro de téléphone du destinataire :
-        <input type="text" id="transfer-phone" placeholder="Ex: +44 20 7946 0123">
-      </label>
-      <label>
-        Montant ($) :
-        <input type="number" id="transfer-amount">
-      </label>
-      <button id="submit-transfert">Valider le Transfert</button>
-    </div>
-    
-    
-     <!-- Section Extra : Liens vers d'autres pages -->
-  <div id="extra-sections">
-    <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
-    <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
-    <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
-    <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
-    <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
-    <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
-    <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
-  </div>
-  </section>
-
-  <!-- ========= Section 3 : Confirmation ========= -->
-  <section id="section-confirmation">
-    <h2>Tableau de Confirmation</h2>
-    <!-- Confirmation Retrait -->
-    <button id="access-confirmation-retrait">Accéder au Tableau de Confirmation Retrait</button>
-    <div id="confirmation-area-retrait" style="display:none;">
-      <table id="confirmation-table-retrait">
+  <!-- Vondrona manodidina ireo sections mba hiseho horizontal -->
+  <div class="sections-container">
+    <!-- Section 1 : Solde & Trading -->
+    <section id="section-solde" class="section">
+      <h2>Solde du Dépôt et Solde des Gains</h2>
+      <p>Dépôt : $<span id="soldeDepot">0.00</span></p>
+      <p>Gains : $<span id="soldeGains">0.00</span></p>
+      <button id="start-trading">Commencer à Trading</button>
+      <div id="trading-steps"></div>
+      <div class="scrolling-text-container">
+        <marquee behavior="scroll" direction="left">
+          EvoFinance Ltd est une entreprise spécialisée dans le trading automatisé et la gestion de capitaux sur les marchés financiers. Profitez de nos nouvelles offres dès maintenant !
+        </marquee>
+      </div>
+      <table id="investment-plan">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Client</th>
-            <th>Type</th>
-            <th>Montant</th>
-            <th>Date</th>
-            <th>Actions</th>
+            <th>Niveau</th>
+            <th>Dépôt Minimum</th>
+            <th>Gains Quotidien</th>
           </tr>
         </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <!-- Confirmation Dépôt -->
-    <button id="access-confirmation-depot">Accéder au Tableau de Confirmation Dépôt</button>
-    <div id="confirmation-area-depot" style="display:none;">
-      <table id="confirmation-table-depot">
-        <thead>
+        <tbody>
           <tr>
-            <th>ID</th>
-            <th>Client</th>
-            <th>Type</th>
-            <th>Montant</th>
-            <th>Date</th>
-            <th>Actions</th>
+            <td>Niveau 1</td>
+            <td>$15</td>
+            <td>2.5% par jour</td>
           </tr>
-        </thead>
-        <tbody></tbody>
+          <tr>
+            <td>Niveau 2</td>
+            <td>$200</td>
+            <td>2.6% par jour</td>
+          </tr>
+          <tr>
+            <td>Niveau 3</td>
+            <td>$1000</td>
+            <td>2.7% par jour</td>
+          </tr>
+        </tbody>
       </table>
-    </div>
+      
+      <!-- Liens supplémentaires -->
+      <div id="extra-sections">
+        <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
+        <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
+        <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
+        <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
+        <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
+        <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
+        <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">Plan d'investissement</a>
+      </div>
+    </section>
+
+    <!-- Section 2 : Transactions -->
+    <section id="section-transaction" class="section">
+      <h2>Transactions</h2>
+      <div style="text-align:center;">
+        <button id="btn-depot">Dépôt</button>
+        <button id="btn-retrait">Retrait</button>
+        <button id="btn-transfert">Transfert Gains</button>
+      </div>
+      <!-- Formulaire de Dépôt -->
+      <div id="form-depot" class="form-container">
+        <h3>Dépôt</h3>
+        <label>
+          Montant ($) :
+          <input type="number" id="depot-amount">
+        </label>
+        <label>
+          Adresse du Dépôt :
+          <select id="depot-address">
+            <option value="adresse1" data-address="0x45837bda9f3684c5f1ca603b71abe18e07d8de0d">USDT BEP20 (dépôt minimum 15$)</option>
+            <option value="adresse2" data-address="P1114188343">PAYEER</option>
+          </select>
+          <button id="copy-depot-address" class="small-btn">Copier</button>
+        </label>
+        <button id="submit-depot">Valider le Dépôt</button>
+      </div>
+      <!-- Formulaire de Retrait -->
+      <div id="form-retrait" class="form-container">
+        <h3>Retrait</h3>
+        <label>
+          Montant ($) :
+          <input type="number" id="retrait-amount">
+        </label>
+        <label>
+          Adresse du Retrait (USDT BEP20 / PAYEER) :
+          <input type="text" id="retrait-address">
+        </label>
+        <button id="submit-retrait">Valider le Retrait</button>
+      </div>
+      <!-- Formulaire de Transfert Gains -->
+      <div id="form-transfert" class="form-container">
+        <h3>Transfert Gains</h3>
+        <label>
+          Numéro de téléphone du destinataire :
+          <input type="text" id="transfer-phone" placeholder="Ex : +44 20 7946 0123">
+        </label>
+        <label>
+          Montant ($) :
+          <input type="number" id="transfer-amount">
+        </label>
+        <button id="submit-transfert">Valider le Transfert</button>
+      </div>
+    </section>
     
     
-     <!-- Section Extra : Liens vers d'autres pages -->
-  <div id="extra-sections">
-    <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
-    <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
-    <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
-    <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
-    <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
-    <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
-    <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
-  </div>
-  </section>
+    
   
-  <!-- ========= Section 4 : Historique ========= -->
-  <section id="section-historique">
-    <h2>Historique des Transactions</h2>
-    <table id="historique-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Client</th>
-          <th>Type</th>
-          <th>Montant</th>
-          <th>Date</th>
-          <th>Résultat</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    
-     <!-- Section Extra : Liens vers d'autres pages -->
-  <div id="extra-sections">
-    <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
-    <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
-    <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
-    <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
-    <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
-    <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
-    <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
+
+    <!-- Section 3 : Confirmation -->
+    <section id="section-confirmation" class="section">
+      <h2>Tableau de Confirmation</h2>
+      <!-- Confirmation Retrait -->
+      <button id="access-confirmation-retrait">Accéder au Tableau de Confirmation Retrait</button>
+      <div id="confirmation-area-retrait" style="display:none;">
+        <table id="confirmation-table-retrait">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Client</th>
+              <th>Type</th>
+              <th>Montant</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <!-- Confirmation Dépôt -->
+      <button id="access-confirmation-depot">Accéder au Tableau de Confirmation Dépôt</button>
+      <div id="confirmation-area-depot" style="display:none;">
+        <table id="confirmation-table-depot">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Client</th>
+              <th>Type</th>
+              <th>Montant</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 4 : Historique -->
+    <section id="section-historique" class="section">
+      <h2>Historique des Transactions</h2>
+      <table id="historique-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Type</th>
+            <th>Montant</th>
+            <th>Date</th>
+            <th>Résultat</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
   </div>
-  </section>
+
+
+
 
   <!-- Zone de Notification Centrée -->
   <div id="center-notification"></div>
   <!-- Journal des Notifications -->
   <div id="notification-log"></div>
 
-
-  <!-- ========== Script JavaScript (fonctionnalités existantes) ========== -->
+  <!-- Script JavaScript Principal -->
   <script>
     /********* Toggle Menu *********/
     const menuButton = document.getElementById("menu-button");
@@ -907,10 +1564,12 @@ CNN <!DOCTYPE html>
       window.open("https://www.facebook.com/profile.php?id=61573270100474", "_blank");
     });
 
-    /********* Gestion de l'Annonce *********/
+    /********* Gestion des Annonces Supprimables *********/
+    // Pour l'annonce secondaire (contenu)
     document.getElementById("close-announcement").addEventListener("click", function() {
-      document.getElementById("announcement").remove();
+      document.getElementById("announcement").style.display = "none";
     });
+    // La fermeture de l'annonce centrale est gérée directement dans l'attribut onclick
 
     /********* Variables & Initialisation *********/
     let soldeDepot = parseFloat(localStorage.getItem("soldeDepot")) || 0;
@@ -1014,7 +1673,13 @@ CNN <!DOCTYPE html>
     });
 
     /********* Section 2 : Transactions *********/
+    // Lors du clic sur le bouton Dépôt, on vérifie si la capacité est pleine.
     document.getElementById("btn-depot").addEventListener("click", function(){
+      const tradingCapacityFull = true; // À ajuster selon la logique réelle
+      if (tradingCapacityFull) {
+        showTopNotification("La capacité maximale de trading est atteinte. Veuillez rejoindre notre Plan d'investissement pour profiter de nos services.", 3000);
+        return;
+      }
       document.getElementById("form-depot").style.display = "block";
       document.getElementById("form-retrait").style.display = "none";
       document.getElementById("form-transfert").style.display = "none";
@@ -1121,7 +1786,6 @@ CNN <!DOCTYPE html>
     });
 
     /********* Section 3 : Confirmation *********/
-    // Confirmation Retrait
     document.getElementById("access-confirmation-retrait").addEventListener("click", function(){
       const code = prompt("Veuillez entrer le code d'accès pour confirmation retrait :");
       if(code === "080600"){
@@ -1131,7 +1795,6 @@ CNN <!DOCTYPE html>
         alert("Code incorrect !");
       }
     });
-    // Confirmation Dépôt
     document.getElementById("access-confirmation-depot").addEventListener("click", function(){
       const code = prompt("Veuillez entrer le code d'accès pour confirmation dépôt :");
       if(code === "206800"){
@@ -1274,7 +1937,7 @@ CNN <!DOCTYPE html>
       });
       document.getElementById(sectionId).classList.add("active");
       
-      // Mettre à jour l'état des boutons de la nav en bas
+      // Mise à jour des boutons de navigation en bas
       const buttons = document.querySelectorAll(".bottom-nav button");
       buttons.forEach(btn => {
         btn.classList.remove("active");
@@ -1295,4 +1958,17 @@ CNN <!DOCTYPE html>
     <button data-section="section-historique" onclick="showSection('section-historique')">Historique</button>
   </div>
 </body>
+
+<!-- JavaScript hanovàna ny section hita -->
+  <script>
+    function showSection(sectionId) {
+      // Maka ireo sections rehetra ary afenina
+      var sections = document.getElementsByClassName('section');
+      for (var i = 0; i < sections.length; i++) {
+        sections[i].classList.remove('active');
+      }
+      // Asehoy ilay section mifanaraka amin'ny ID nomena
+      document.getElementById(sectionId).classList.add('active');
+    }
+  </script>
 </html>
