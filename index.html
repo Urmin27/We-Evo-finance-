@@ -1,1974 +1,835 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="mg">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Evo-finance investissement</title>
+  <title>EVO Finance Service</title>
   <style>
-    /* CSS efa nisy */
-    
-    /* Fanamboarana ny layout horizontal ho an'ny sections */
-    .sections-container {
-      display: flex;
-      flex-wrap: nowrap; /* Raha tianao dia azo atao wrap */
-      justify-content: space-between;
-      overflow-x: auto; /* Raha be loatra ny sections dia azo scroll-na */
-      padding: 10px;
+    /* CSS Global */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-  /* Animation de changement de couleur pour l'annonce centrale */
-    @keyframes colorChange {
-      0% { background-color: #ff4d4d; }
-      50% { background-color: #ffcc00; }
-      100% { background-color: #ff4d4d; }
-    }
-    /* Style pour l'annonce centrale (affichée au centre) */
-    #trading-capacity-announcement {
-      animation: colorChange 3s infinite;
-      padding: 20px;
+    header {
+      background: #333;
+      color: #fff;
       text-align: center;
-      font-weight: bold;
-      color: white;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1000;
-      border: 3px solid white;
-      box-sizing: border-box;
-      max-width: 90%;
+      padding: 1rem 0;
     }
-    #trading-capacity-announcement a {
-      color: white;
-      text-decoration: underline;
+    /* Main Content – tsy miseho raha tsy vita verification */
+    #main-content {
+      display: none;
     }
-    #trading-capacity-announcement button.close-btn {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      background: transparent;
+    section {
+      background: #fff;
+      margin: 1rem auto;
+      padding: 1rem;
+      border-radius: 8px;
+      max-width: 800px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h2, h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    .account-info {
+      display: flex;
+      justify-content: space-around;
+    }
+    .account-info div {
+      text-align: center;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 40%;
+      background: #fafafa;
+    }
+    .transaction-buttons {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .transaction-buttons button {
+      margin: 0.5rem;
+      padding: 0.5rem 1rem;
       border: none;
-      font-size: 20px;
-      color: white;
+      background: #007BFF;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .transaction-buttons button:hover {
+      background: #0056b3;
+    }
+    form {
+      margin: 1rem 0;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+    form label {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #28a745;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    form button:hover {
+      background: #218838;
+    }
+    /* Section TRADING */
+    #trading {
+      text-align: center;
+    }
+    .trading-container {
+      margin-top: 1rem;
+    }
+    .trading-button {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1rem;
+      color: #fff;
+      background: #17a2b8;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #trading-status {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    #notification-trading {
+      margin-top: 1rem;
+      background: #d1ecf1;
+      padding: 1rem;
+      border: 1px solid #bee5eb;
+      border-radius: 8px;
+      color: #0c5460;
+      display: none;
+    }
+    #notification-trading button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #17a2b8;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    /* Historique */
+    #historique-container {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      background: #fff;
+    }
+    .historique-item {
+      border-bottom: 1px solid #eee;
+      padding: 0.5rem 0;
+    }
+    /* Tabilao de Confirmation (Admin) */
+    #confirmation-table {
+      margin-top: 2rem;
+    }
+    #confirmation-table h2 {
+      text-align: center;
+    }
+    #confirmation-access {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    #confirmation-access input {
+      padding: 0.5rem;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #confirmation-access button {
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
+      border: none;
+      background: #17a2b8;
+      color: #fff;
+      border-radius: 4px;
       cursor: pointer;
     }
-    /* Style pour l'annonce secondaire (intégrée au contenu) */
-    #announcement {
-      position: relative;
-      padding: 15px;
-      margin: 20px;
-      border: 2px solid #333;
-      background-color: #f8f8f8;
+    #confirmation-container {
+      display: none;
     }
-    #announcement h2 {
+    #confirmation-container table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #confirmation-container th, #confirmation-container td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    #confirmation-container th {
+      background: #f0f0f0;
+    }
+    #confirmation-container button {
+      padding: 0.3rem 0.6rem;
+      background: #17a2b8;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0 2px;
+    }
+    /* Formulaire Registre CIN – ho an'ireo tsy mbola voasoratra */
+    #registration-cin {
+      max-width: 800px;
+      margin: 1rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    #registration-cin h2 {
       margin-top: 0;
     }
-    #announcement span.close-btn {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      font-size: 22px;
-      font-weight: bold;
-      color: #333;
-      cursor: pointer;
-    }
-    /* Style du préchargeur (splash screen) */
-    #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-    }
-    /* Exemple de style pour la navigation en bas */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: #eee;
-      text-align: center;
-      padding: 10px 0;
-    }
-    .bottom-nav button {
-      margin: 0 5px;
-      padding: 5px 10px;
-    }
-    /* Vous pouvez ajouter ici d'autres styles nécessaires */
-    
-    
-    
-    
-    
-    
-    /* Style général */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      color: #333;
-      padding-bottom: 70px; /* espace pour la nav en bas */
-    }
-    h1, h2, h3 {
-      margin: 0 0 10px;
-    }
-    p {
-      line-height: 1.5;
-    }
-    /* Préloader */
-    #preloader {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: #333;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    #preloader-content {
-      color: #fff;
-      font-size: 24px;
-    }
-    /* Sections de contenu */
-    section {
-      display: none;
-      /* Fond bleu clair (non blanc) */
-      background: black ;
-      margin: 20px;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    section.active {
+    #registration-cin form label {
       display: block;
+      margin: 0.5rem 0 0.2rem;
     }
-    /* Navigation par onglets en bas */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
+    #registration-cin form input {
       width: 100%;
-      background: #333;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      height: 60px;
-      z-index: 1000;
-    }
-    .bottom-nav button {
-      flex: 1;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 16px;
-      padding: 10px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .bottom-nav button:hover {
-      background: #444;
-    }
-    .bottom-nav button.active {
-      background: black ;
-      font-weight: bold;
-    }
-    /* Style des formulaires et tables */
-    .form-container {
-      margin: 20px 0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-    }
-    table th {
-      background-color: black ;
-    }
-    button {
-      padding: 10px 15px;
-      border: none;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
       border-radius: 4px;
+    }
+    #registration-cin form button {
+      padding: 0.5rem 1rem;
+      border: none;
       background: #007BFF;
       color: #fff;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-    /* Annonce */
-    #announcement {
-      background: #fffae6;
-      padding: 15px;
-      margin: 20px;
-      border: 1px solid #e6e6e6;
-      border-radius: 8px;
-    }
-    /* Autres ajustements */
-    #side-menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    #side-menu ul li {
-      margin: 10px 0;
-    }
-    #side-menu ul li a {
-      text-decoration: none;
-      color: #007BFF;
-    }
-    
-    
-    
-    
-    
-    
-   
-    /* ---------- Preloader CSS ---------- */
-    #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #1a3b6e; /* même couleur que le background */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
-    #preloader-content {
-      font-size: 1.2em; /* taille réduite */
-      font-weight: bold;
-      color: #fff;
-      padding: 10px 20px;
-      border: 2px solid;
-      border-radius: 8px;
-      text-align: center;
-      animation: borderColorCycle 2s linear infinite;
-    }
-    @keyframes borderColorCycle {
-      0%   { border-color: #ff0000; }
-      25%  { border-color: #00ff00; }
-      50%  { border-color: #0000ff; }
-      75%  { border-color: #ff00ff; }
-      100% { border-color: #ff0000; }
-    }
-    .letter {
-      display: inline-block;
-      animation: colorCycle 2s linear infinite;
-    }
-    @keyframes colorCycle {
-      0%   { color: #ff0000; }
-      25%  { color: #ff7f00; }
-      50%  { color: #ffff00; }
-      75%  { color: #00ff00; }
-      100% { color: #0000ff; }
-    }
-
-    /* ---------- Styles Globaux de la Page d'Accueil (votre code existant) ---------- */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1a3b6e;
-      color: #fff;
-      padding: 20px;
-      overflow-x: hidden;
-    }
-    h1, h2, h3 {
-      text-align: center;
-    }
-    button {
-      cursor: pointer;
-      padding: 8px 15px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ff9800;
-      color: #fff;
-      font-weight: bold;
-      margin: 5px;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background-color: #e68900;
-    }
-    table {
-      width: 90%;
-      margin: 10px auto;
-      border-collapse: collapse;
-      background: rgba(255,255,255,0.1);
-    }
-    table, th, td {
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-    th, td {
-      padding: 8px;
-      text-align: center;
-    }
-    /* ---------- Profil (en haut à droite) ---------- */
-    #profile-container {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      text-align: center;
-      z-index: 1300;
-    }
-    #profile-pic {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #fff;
-    }
-    #upload-btn {
-      margin-top: 5px;
-      background-color: #ff9800;
-      border: none;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.8em;
-      cursor: pointer;
-    }
-    #upload-btn:hover {
-      background-color: #e68900;
-    }
-    /* ---------- Service Client (sur le côté droit de la page) ---------- */
-    #service-client {
-      position: fixed;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1300;
-      border: 2px solid #fff;
-      overflow: hidden;
-    }
-    #service-client img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    /* ---------- Section 1 : Solde & Trading ---------- */
-    #section-solde {
-      margin-bottom: 40px;
-    }
-    #section-solde p {
-      font-size: 1.2em;
-    }
-    #investment-plan {
-      margin-top: 20px;
-    }
-    /* Div pour les étapes de trading */
-    #trading-steps {
-      text-align: center;
-      margin-top: 10px;
-    }
-    /* ---------- Section 2 : Transactions ---------- */
-    #section-transaction {
-      margin-bottom: 40px;
-    }
-    .form-container {
-      display: none;
-      margin: 10px auto;
-      padding: 15px;
-      background: rgba(0,0,0,0.5);
-      border-radius: 8px;
-      width: 90%;
-    }
-    label {
-      display: block;
-      margin: 8px 0;
-    }
-    input[type="number"],
-    input[type="text"],
-    select {
-      width: 95%;
-      padding: 5px;
-      border-radius: 3px;
-      border: none;
-      margin-top: 5px;
-    }
-    .small-btn {
-      font-size: 0.8em;
-      padding: 5px 10px;
-      margin-left: 5px;
-    }
-    /* ---------- Zone de Notification Centrée ---------- */
-    #center-notification {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.85);
-      padding: 20px 30px;
-      border-radius: 10px;
-      z-index: 1100;
-      font-size: 1.2em;
-      text-align: center;
-    }
-    /* ---------- Zone de Notification en Haut ---------- */
-    #top-notification {
-      display: none;
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.85);
-      padding: 10px 20px;
-      border-radius: 5px;
-      z-index: 1100;
-      font-size: 1.2em;
-    }
-    /* ---------- Journal des Notifications ---------- */
-    #notification-log {
-      max-height: 150px;
-      overflow-y: auto;
-      border: 1px solid #fff;
-      padding: 10px;
-      margin: 20px auto;
-      width: 90%;
-      background: rgba(0,0,0,0.5);
-      font-size: 0.9em;
-    }
-    /* ---------- Sections 3 & 4 : Confirmation & Historique ---------- */
-    section.confirmation, section.historique {
-      margin-bottom: 40px;
-    }
-    /* ---------- Menu Three Dots ---------- */
-    #menu-button {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      font-size: 24px;
-      cursor: pointer;
-      z-index: 1200;
-      background: rgba(0,0,0,0.7);
-      padding: 5px 10px;
-      border-radius: 50%;
-    }
-    #side-menu {
-      display: none;
-      position: fixed;
-      top: 50px;
-      left: 10px;
-      background: rgba(0,0,0,0.7);
-      padding: 10px;
-      border-radius: 5px;
-      z-index: 1200;
-    }
-    #side-menu ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-    #side-menu li {
-      margin: 5px 0;
-    }
-    #side-menu a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.9em;
-    }
-    #side-menu a:hover {
-      text-decoration: underline;
-    }
-    /* ---------- Autres Styles Additionnels ---------- */
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #fff;
-      overflow-x: hidden;
-    }
-    h1 {
-      text-align: center;
-      margin-top: 20px;
-      font-weight: 700;
-      font-size: 2.5em;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    }
-    .header-img {
-      display: block;
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      animation: fadeIn 2s ease-in-out;
-      border-bottom: 5px solid #fff;
-    }
-    #nav-buttons {
-      text-align: center;
-      margin: 20px 0;
-    }
-    #nav-buttons .button {
-      background-color: #ff9800;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      margin: 0 10px;
-      border-radius: 25px;
-      font-weight: 700;
-      transition: transform 0.3s, background-color 0.3s;
-    }
-    #nav-buttons .button:hover {
-      transform: scale(1.1);
-      background-color: #e68900;
-    }
-    #mining-section, #transactions-section, #trading-section {
-      background: rgba(255,255,255,0.1);
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 800px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      animation: slideIn 1s ease-out;
-    }
-    h3 {
-      margin-top: 20px;
-      font-weight: 700;
-    }
-    .link-button {
-      display: inline-block;
-      background-color: #ff5c1c;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      padding: 12px 20px;
-      border-radius: 25px;
-      text-decoration: none;
-      margin: 10px;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-    .link-button:hover {
-      transform: scale(1.1);
-      background-color: #e44d12;
-    }
-    #extra-sections {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    input[type="number"], input[type="text"], select {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: none;
-      font-size: 1em;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: rgba(255,255,255,0.2);
-      margin-top: 20px;
-      animation: fadeIn 1s ease-in;
-    }
-    th, td {
-      padding: 12px;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-    th {
-      background-color: rgba(0,0,0,0.3);
-      font-weight: 700;
-    }
-    #notification {
-      text-align: center;
-      font-size: 1.2em;
-      margin-top: 20px;
-    }
-    #mining-notification {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      z-index: 1000;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideIn {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    /* ---------- Style de l'Annonce ---------- */
-    #announcement {
-      background-color: #fff;
-      color: #000;
-      padding: 20px 30px;
-      border-radius: 8px;
-      margin: 20px auto;
-      max-width: 800px;
-      text-align: left;
-      font-size: 1.1em;
-      line-height: 1.5;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      position: relative;
-    }
-    /* Bouton fermer (X) dans l'annonce */
-    #close-announcement {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      font-size: 1.5em;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    /* Style général */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      color: #333;
-      padding-bottom: 70px; /* espace pour la nav en bas */
-    }
-    h1, h2, h3 {
-      margin: 0 0 10px;
-    }
-    p {
-      line-height: 1.5;
-    }
-    /* Préloader */
-    #preloader {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: #333;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    #preloader-content {
-      color: #fff;
-      font-size: 24px;
-    }
-    /* Sections de contenu */
-    section {
-      display: none;
-      /* Fond bleu clair (non blanc) */
-      background: black ;
-      margin: 20px;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    section.active {
-      display: block;
-    }
-    /* Navigation par onglets en bas */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #333;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      height: 60px;
-      z-index: 1000;
-    }
-    .bottom-nav button {
-      flex: 1;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 16px;
-      padding: 10px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .bottom-nav button:hover {
-      background: #444;
-    }
-    .bottom-nav button.active {
-      background: black ;
-      font-weight: bold;
-    }
-    /* Style des formulaires et tables */
-    .form-container {
-      margin: 20px 0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    table th, table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-    }
-    table th {
-      background-color: black ;
-    }
-    button {
-      padding: 10px 15px;
-      border: none;
       border-radius: 4px;
-      background: #007BFF;
-      color: #fff;
       cursor: pointer;
-      transition: background 0.3s;
     }
-    button:hover {
+    #registration-cin form button:hover {
       background: #0056b3;
     }
-    /* Annonce */
-    #announcement {
-      background: #fffae6;
-      padding: 15px;
-      margin: 20px;
-      border: 1px solid #e6e6e6;
+    /* Notification (2 sec) */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #28a745;
+      color: #fff;
+      padding: 1rem;
       border-radius: 8px;
-    }
-    /* Autres ajustements */
-    #side-menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    #side-menu ul li {
-      margin: 10px 0;
-    }
-    #side-menu ul li a {
-      text-decoration: none;
-      color: #007BFF;
-    }
-    
-    
-    
-    
-    
-    
-   
-    /* ---------- Preloader CSS ---------- */
-    #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #1a3b6e; /* même couleur que le background */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
-    #preloader-content {
-      font-size: 1.2em; /* taille réduite */
-      font-weight: bold;
-      color: #fff;
-      padding: 10px 20px;
-      border: 2px solid;
-      border-radius: 8px;
-      text-align: center;
-      animation: borderColorCycle 2s linear infinite;
-    }
-    @keyframes borderColorCycle {
-      0%   { border-color: #ff0000; }
-      25%  { border-color: #00ff00; }
-      50%  { border-color: #0000ff; }
-      75%  { border-color: #ff00ff; }
-      100% { border-color: #ff0000; }
-    }
-    .letter {
-      display: inline-block;
-      animation: colorCycle 2s linear infinite;
-    }
-    @keyframes colorCycle {
-      0%   { color: #ff0000; }
-      25%  { color: #ff7f00; }
-      50%  { color: #ffff00; }
-      75%  { color: #00ff00; }
-      100% { color: #0000ff; }
-    }
-
-    /* ---------- Styles Globaux de la Page d'Accueil (votre code existant) ---------- */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1a3b6e;
-      color: #fff;
-      padding: 20px;
-      overflow-x: hidden;
-    }
-    h1, h2, h3 {
-      text-align: center;
-    }
-    button {
-      cursor: pointer;
-      padding: 8px 15px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ff9800;
-      color: #fff;
-      font-weight: bold;
-      margin: 5px;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background-color: #e68900;
-    }
-    table {
-      width: 90%;
-      margin: 10px auto;
-      border-collapse: collapse;
-      background: rgba(255,255,255,0.1);
-    }
-    table, th, td {
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-    th, td {
-      padding: 8px;
-      text-align: center;
-    }
-    /* ---------- Profil (en haut à droite) ---------- */
-    #profile-container {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      text-align: center;
-      z-index: 1300;
-    }
-    #profile-pic {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #fff;
-    }
-    #upload-btn {
-      margin-top: 5px;
-      background-color: #ff9800;
-      border: none;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.8em;
-      cursor: pointer;
-    }
-    #upload-btn:hover {
-      background-color: #e68900;
-    }
-    /* ---------- Service Client (sur le côté droit de la page) ---------- */
-    #service-client {
-      position: fixed;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1300;
-      border: 2px solid #fff;
-      overflow: hidden;
-    }
-    #service-client img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    /* ---------- Section 1 : Solde & Trading ---------- */
-    #section-solde {
-      margin-bottom: 40px;
-    }
-    #section-solde p {
-      font-size: 1.2em;
-    }
-    #investment-plan {
-      margin-top: 20px;
-    }
-    /* Div pour les étapes de trading */
-    #trading-steps {
-      text-align: center;
-      margin-top: 10px;
-    }
-    /* ---------- Section 2 : Transactions ---------- */
-    #section-transaction {
-      margin-bottom: 40px;
-    }
-    .form-container {
-      display: none;
-      margin: 10px auto;
-      padding: 15px;
-      background: rgba(0,0,0,0.5);
-      border-radius: 8px;
-      width: 90%;
-    }
-    label {
-      display: block;
-      margin: 8px 0;
-    }
-    input[type="number"],
-    input[type="text"],
-    select {
-      width: 95%;
-      padding: 5px;
-      border-radius: 3px;
-      border: none;
-      margin-top: 5px;
-    }
-    .small-btn {
-      font-size: 0.8em;
-      padding: 5px 10px;
-      margin-left: 5px;
-    }
-    /* ---------- Zone de Notification Centrée ---------- */
-    #center-notification {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.85);
-      padding: 20px 30px;
-      border-radius: 10px;
-      z-index: 1100;
-      font-size: 1.2em;
-      text-align: center;
-    }
-    /* ---------- Zone de Notification en Haut ---------- */
-    #top-notification {
-      display: none;
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.85);
-      padding: 10px 20px;
-      border-radius: 5px;
-      z-index: 1100;
-      font-size: 1.2em;
-    }
-    /* ---------- Journal des Notifications ---------- */
-    #notification-log {
-      max-height: 150px;
-      overflow-y: auto;
-      border: 1px solid #fff;
-      padding: 10px;
-      margin: 20px auto;
-      width: 90%;
-      background: rgba(0,0,0,0.5);
-      font-size: 0.9em;
-    }
-    /* ---------- Sections 3 & 4 : Confirmation & Historique ---------- */
-    section.confirmation, section.historique {
-      margin-bottom: 40px;
-    }
-    /* ---------- Menu Three Dots ---------- */
-    #menu-button {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      font-size: 24px;
-      cursor: pointer;
-      z-index: 1200;
-      background: rgba(0,0,0,0.7);
-      padding: 5px 10px;
-      border-radius: 50%;
-    }
-    #side-menu {
-      display: none;
-      position: fixed;
-      top: 50px;
-      left: 10px;
-      background: rgba(0,0,0,0.7);
-      padding: 10px;
-      border-radius: 5px;
-      z-index: 1200;
-    }
-    #side-menu ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-    #side-menu li {
-      margin: 5px 0;
-    }
-    #side-menu a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.9em;
-    }
-    #side-menu a:hover {
-      text-decoration: underline;
-    }
-    /* ---------- Autres Styles Additionnels ---------- */
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #fff;
-      overflow-x: hidden;
-    }
-    h1 {
-      text-align: center;
-      margin-top: 20px;
-      font-weight: 700;
-      font-size: 2.5em;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    }
-    .header-img {
-      display: block;
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      animation: fadeIn 2s ease-in-out;
-      border-bottom: 5px solid #fff;
-    }
-    #nav-buttons {
-      text-align: center;
-      margin: 20px 0;
-    }
-    #nav-buttons .button {
-      background-color: #ff9800;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      margin: 0 10px;
-      border-radius: 25px;
-      font-weight: 700;
-      transition: transform 0.3s, background-color 0.3s;
-    }
-    #nav-buttons .button:hover {
-      transform: scale(1.1);
-      background-color: #e68900;
-    }
-    #mining-section, #transactions-section, #trading-section {
-      background: rgba(255,255,255,0.1);
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 800px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      animation: slideIn 1s ease-out;
-    }
-    h3 {
-      margin-top: 20px;
-      font-weight: 700;
-    }
-    .link-button {
-      display: inline-block;
-      background-color: #ff5c1c;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      padding: 12px 20px;
-      border-radius: 25px;
-      text-decoration: none;
-      margin: 10px;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-    .link-button:hover {
-      transform: scale(1.1);
-      background-color: #e44d12;
-    }
-    #extra-sections {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    input[type="number"], input[type="text"], select {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: none;
-      font-size: 1em;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: rgba(255,255,255,0.2);
-      margin-top: 20px;
-      animation: fadeIn 1s ease-in;
-    }
-    th, td {
-      padding: 12px;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-    th {
-      background-color: rgba(0,0,0,0.3);
-      font-weight: 700;
-    }
-    #notification {
-      text-align: center;
-      font-size: 1.2em;
-      margin-top: 20px;
-    }
-    #mining-notification {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      padding: 20px;
-      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       z-index: 1000;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideIn {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    /* ---------- Style de l'Annonce ---------- */
-    #announcement {
-      background-color: #fff;
-      color: #000;
-      padding: 20px 30px;
-      border-radius: 8px;
-      margin: 20px auto;
-      max-width: 800px;
-      text-align: left;
-      font-size: 1.1em;
-      line-height: 1.5;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      position: relative;
-    }
-    /* Bouton fermer (X) dans l'annonce */
-    #close-announcement {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      font-size: 1.5em;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    
-    
-    
-    
-   /* Container mitazona ny rohy ho grid */
-#extra-sections {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
-  padding: 20px;
-  background: #f0f0f0;
-}
-
-/* Style ho an'ny rohy */
-.link-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  background-color: #0077cc;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: background-color 0.3s, transform 0.2s;
-  min-height: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.5); /* Border kelikely */
-}
-
-.link-button:hover {
-  background-color: #005fa3;
-  transform: translateY(-3px);
-}
-
-.link-button:active {
-  background-color: #004e8a;
-  transform: translateY(0);
-}
-
-/* Raha misy rohy fahafito, andahatra ho eo afovoany izy io */
-#extra-sections a:nth-child(7) {
-  grid-column: 2;
-}  
-      </style>
+  </style>
 </head>
 <body>
-  <!-- Préchargeur -->
-  <div id="preloader">
-    <div id="preloader-content"></div>
-  </div>
-
-  <!-- Annonce Centrale (Trading Capacity) - Supprimable -->
-  <div id="trading-capacity-announcement">
-    La capacité maximale pour le trading automatisé est atteinte.<br>
-    Si vous n'êtes pas encore inscrit, nous vous invitons à rejoindre notre communauté pour profiter de nos offres exclusives.<br>
-    Pour investir, veuillez rejoindre notre 
-    <a href="https://plan-de-travail.vercel.app/" target="_blank">Plan d'investissement</a>.
-    <button class="close-btn" onclick="document.getElementById('trading-capacity-announcement').style.display='none'">&times;</button>
-  </div>
-
-  <!-- Script du Préchargeur -->
-  <script>
-    // Séquence de textes pour le préchargeur (affichage lettre par lettre)
-    const texts = [
-      { text: "EVO TRADING", duration: 5000 },
-      { text: "EVO INVESTISSEMENT", duration: 5000 },
-      { text: "Pour tous nos utilisateurs, suite à vos demandes, nous avons décidé d’augmenter les gains de notre plan de trading. Voici les nouveaux taux :<br><br>Niveau 1 : 2,5% de gains par jour<br>Niveau 2 : 2,6% de gains par jour<br>Niveau 3 : 2,7% de gains par jour<br><br>De plus, lors de chaque dépôt d’au moins 15$, vous recevrez immédiatement un bonus de 1$, qui pourra être retiré le lundi.<br><br>Plan d’investissement par contrat :<br>Vous pouvez également investir via des contrats. Par exemple :<br><br>Investissement de 2,5$ : contrat de 30 jours – Gain total de 5% (retrait du capital et des gains à l’issue du contrat).<br>Investissement de 200$ : contrat de 3 mois – Gain de 5,5%.<br>Investissement de 500$ et plus : contrat de 6 mois – Gain de 6,5%.", duration: 40000 },
-      { text: "BIENVENUE", duration: 5000 }
-    ];
-    let currentText = 0;
-    const preloaderContent = document.getElementById("preloader-content");
-
-    function generateLetterSpans(text) {
-      let html = "";
-      let i = 0;
-      while (i < text.length) {
-        if (text[i] === "<") {
-          let j = text.indexOf(">", i);
-          if (j === -1) j = i;
-          html += text.substring(i, j+1);
-          i = j + 1;
-        } else {
-          const char = text[i];
-          if (char === " ") {
-            html += "&nbsp;";
-          } else {
-            html += `<span class="letter" style="animation-delay: ${i * 0.05}s;">${char}</span>`;
-          }
-          i++;
-        }
-      }
-      return html;
-    }
-
-    function showText(index) {
-      const current = texts[index];
-      preloaderContent.innerHTML = generateLetterSpans(current.text);
-      setTimeout(() => {
-        currentText++;
-        if (currentText < texts.length) {
-          showText(currentText);
-        } else {
-          // Fin de la séquence : fade-out du préchargeur et affichage du contenu
-          document.getElementById("preloader").style.opacity = "0";
-          setTimeout(() => {
-            document.getElementById("preloader").style.display = "none";
-          }, 500);
-        }
-      }, current.duration);
-    }
-    window.addEventListener("load", function(){
-      showText(0);
-    });
-  </script>
-
-  <!-- CONTENU DE LA PAGE D'ACCUEIL -->
-
-  <!-- Bouton Menu -->
-  <div id="menu-button">⋮</div>
+  <header>
+    <h1>EVO Finance Service</h1>
+  </header>
   
-  <!-- Sidebar Menu -->
-  <div id="side-menu">
-    <ul>
-      <li><a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank">Demande de retrait</a></li>
-      <li><a href="https://evo-finance-depot.vercel.app/" target="_blank">Demande de dépôt</a></li>
-      <li><a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank">Besoin d'aide</a></li>
-      <li><a href="https://example.com/profil-entreprise" target="_blank">Profil de l'entreprise</a></li>
-      <li><a href="https://plan-de-travail.vercel.app/" target="_blank">Plan d'investissement</a></li>
-      <li><a href="https://eq-seven.vercel.app/" target="_blank">Investissement longue durée</a></li>
-      <li><a href="https://evo-finance-quipe-ivl7.vercel.app/?ref=ABC123" target="_blank">Se déconnecter</a></li>
-    </ul>
-  </div>
-
-  <!-- Notification en Haut -->
-  <div id="top-notification"></div>
-  
-  <!-- Gestion du Profil -->
-  <div id="profile-container">
-    <img id="profile-pic" src="https://via.placeholder.com/60?text=Profil" alt="Photo de profil">
-    <br>
-    <button id="upload-btn">Ajouter une photo de profil</button>
-    <input type="file" id="file-input" accept="image/*" style="display:none;">
-  </div>
-
-  <!-- Service Client -->
-  <div id="service-client">
-    <img src="https://img.icons8.com/color/96/000000/customer-support.png" alt="Service Client">
-  </div>
-
-  <h1>EVO-FINANCE</h1>
-  
-  <!-- Annonce Secondaire (intégrée au contenu) - Supprimable -->
-  <div id="announcement">
-    <span class="close-btn" id="close-announcement">&times;</span>
-    <h2 style="text-align:center; margin-top:0;">Annonce Importante</h2>
-    <p>
-      Pour tous nos utilisateurs, suite à vos demandes, nous avons décidé d’augmenter les gains de notre plan de trading.
-      <strong>Voici les nouveaux taux :</strong>
-    </p>
-    <ul style="list-style:disc; margin-left:20px;">
-      <li>Niveau 1 : 2,5% de gains par jour</li>
-      <li>Niveau 2 : 2,6% de gains par jour</li>
-      <li>Niveau 3 : 2,7% de gains par jour</li>
-    </ul>
-    <p>
-      De plus, lors de chaque dépôt d’au moins 15$, vous recevrez immédiatement un bonus de 1$, qui pourra être retiré le lundi.
-    </p>
-    <hr style="border: 0; border-top: 1px solid #ccc;">
-    <p>
-      <strong>Plan d’investissement par contrat :</strong><br>
-      Vous pouvez également investir via des contrats. Par exemple :
-    </p>
-    <ul style="list-style:disc; margin-left:20px;">
-      <li>Investissement de 2,5$ : contrat de 30 jours – Gain total de 5% (retrait du capital et des gains à l’issue du contrat).</li>
-      <li>Investissement de 200$ : contrat de 3 mois – Gain de 5,5%.</li>
-      <li>Investissement de 500$ et plus : contrat de 6 mois – Gain de 6,5%.</li>
-    </ul>
-  </div>
-
-  <!-- Vondrona manodidina ireo sections mba hiseho horizontal -->
-  <div class="sections-container">
-    <!-- Section 1 : Solde & Trading -->
-    <section id="section-solde" class="section">
-      <h2>Solde du Dépôt et Solde des Gains</h2>
-      <p>Dépôt : $<span id="soldeDepot">0.00</span></p>
-      <p>Gains : $<span id="soldeGains">0.00</span></p>
-      <button id="start-trading">Commencer à Trading</button>
-      <div id="trading-steps"></div>
-      <div class="scrolling-text-container">
-        <marquee behavior="scroll" direction="left">
-          EvoFinance Ltd est une entreprise spécialisée dans le trading automatisé et la gestion de capitaux sur les marchés financiers. Profitez de nos nouvelles offres dès maintenant !
-        </marquee>
-      </div>
-      <table id="investment-plan">
-        <thead>
-          <tr>
-            <th>Niveau</th>
-            <th>Dépôt Minimum</th>
-            <th>Gains Quotidien</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Niveau 1</td>
-            <td>$15</td>
-            <td>2.5% par jour</td>
-          </tr>
-          <tr>
-            <td>Niveau 2</td>
-            <td>$200</td>
-            <td>2.6% par jour</td>
-          </tr>
-          <tr>
-            <td>Niveau 3</td>
-            <td>$1000</td>
-            <td>2.7% par jour</td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <!-- Liens supplémentaires -->
-      <div id="extra-sections">
-        <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
-        <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
-        <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
-        <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
-        <a href="https://evo-finance-depot.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
-        <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
-        <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">Plan d'investissement</a>
+  <!-- Main Content (miseho rehefa efa voamarina ny CIN) -->
+  <div id="main-content">
+    <!-- Section: Mon compte -->
+    <section id="mon-compte">
+      <h2>Mon compte</h2>
+      <div class="account-info">
+        <div class="compte-depot">
+          <h3>Solde du dépôt</h3>
+          <p id="soldeDepot">0$</p>
+        </div>
+        <div class="compte-gains">
+          <h3>Solde du gains</h3>
+          <p id="soldeGains">0$</p>
+        </div>
       </div>
     </section>
-
-    <!-- Section 2 : Transactions -->
-    <section id="section-transaction" class="section">
-      <h2>Transactions</h2>
-      <div style="text-align:center;">
-        <button id="btn-depot">Dépôt</button>
-        <button id="btn-retrait">Retrait</button>
-        <button id="btn-transfert">Transfert Gains</button>
+    
+    <!-- Section: TRANSACTION -->
+    <section id="transaction">
+      <h2>Transaction</h2>
+      <div class="transaction-buttons">
+        <button id="btn-depot">Faire un dépôt</button>
+        <button id="btn-retrait">Faire un retrait</button>
+        <button id="btn-transfert">Faire une transfert d'argent</button>
       </div>
-      <!-- Formulaire de Dépôt -->
-      <div id="form-depot" class="form-container">
-        <h3>Dépôt</h3>
-        <label>
-          Montant ($) :
-          <input type="number" id="depot-amount">
-        </label>
-        <label>
-          Adresse du Dépôt :
-          <select id="depot-address">
-            <option value="adresse1" data-address="0x45837bda9f3684c5f1ca603b71abe18e07d8de0d">USDT BEP20 (dépôt minimum 15$)</option>
-            <option value="adresse2" data-address="P1114188343">PAYEER</option>
+      <div class="transaction-forms">
+        <!-- Formulaire Dépôt -->
+        <form id="form-depot" style="display: none;">
+          <h3>Dépôt</h3>
+          <label for="depot-montant">Montant:</label>
+          <input type="number" id="depot-montant" min="10" placeholder="Minimum 10$" required>
+          <label for="adresse-depot">Adresse du dépôt:</label>
+          <select id="adresse-depot">
+            <option value="Adresse1">Adresse 1</option>
+            <option value="Adresse2">Adresse 2</option>
           </select>
-          <button id="copy-depot-address" class="small-btn">Copier</button>
-        </label>
-        <button id="submit-depot">Valider le Dépôt</button>
+          <button type="button" onclick="copyAdresse()">Copier l'adresse</button>
+          <label for="id-transaction">Id de transaction:</label>
+          <input type="text" id="id-transaction" required>
+          <button type="submit">Valider le dépôt</button>
+        </form>
+        
+        <!-- Formulaire Retrait -->
+        <form id="form-retrait" style="display: none;">
+          <h3>Retrait</h3>
+          <label for="retrait-montant">Montant à retrait:</label>
+          <input type="number" id="retrait-montant" min="1" placeholder="Minimum 1$" required>
+          <label for="adresse-retrait">Adresse du retrait:</label>
+          <input type="text" id="adresse-retrait" required>
+          <button type="submit">Valider le retrait</button>
+        </form>
+        
+        <!-- Formulaire Transfert d'argent -->
+        <form id="form-transfert" style="display: none;">
+          <h3>Transfert d'argent</h3>
+          <label for="transfert-montant">Montant à transférer:</label>
+          <input type="number" id="transfert-montant" min="5" placeholder="Minimum 5$" required>
+          <label for="email-utilisateur">Email de l'utilisateur destinataire:</label>
+          <input type="email" id="email-utilisateur" required>
+          <label for="reception-type">Réception :</label>
+          <select id="reception-type" required>
+            <option value="depot">Solde du dépôt</option>
+            <option value="gains">Solde du gains</option>
+          </select>
+          <button type="submit">Envoyer</button>
+        </form>
       </div>
-      <!-- Formulaire de Retrait -->
-      <div id="form-retrait" class="form-container">
-        <h3>Retrait</h3>
-        <label>
-          Montant ($) :
-          <input type="number" id="retrait-amount">
-        </label>
-        <label>
-          Adresse du Retrait (USDT BEP20 / PAYEER) :
-          <input type="text" id="retrait-address">
-        </label>
-        <button id="submit-retrait">Valider le Retrait</button>
-      </div>
-      <!-- Formulaire de Transfert Gains -->
-      <div id="form-transfert" class="form-container">
-        <h3>Transfert Gains</h3>
-        <label>
-          Numéro de téléphone du destinataire :
-          <input type="text" id="transfer-phone" placeholder="Ex : +44 20 7946 0123">
-        </label>
-        <label>
-          Montant ($) :
-          <input type="number" id="transfer-amount">
-        </label>
-        <button id="submit-transfert">Valider le Transfert</button>
+    </section>
+    
+    <!-- Section: TRADING -->
+    <section id="trading">
+      <h2>Trading</h2>
+      <div class="trading-container">
+        <button id="btn-trading" class="trading-button">Trading</button>
+        <p id="trading-status">Cliquez sur Trading pour commencer</p>
+        <div id="notification-trading">
+          <p>Le robot EVO FINANCE vous offre <span id="gain-robot">0$</span></p>
+          <button id="btn-ajouter-gains">Ajouter au compte du gains</button>
+        </div>
       </div>
     </section>
     
-    
-    
-  
-
-    <!-- Section 3 : Confirmation -->
-    <section id="section-confirmation" class="section">
-      <h2>Tableau de Confirmation</h2>
-      <!-- Confirmation Retrait -->
-      <button id="access-confirmation-retrait">Accéder au Tableau de Confirmation Retrait</button>
-      <div id="confirmation-area-retrait" style="display:none;">
-        <table id="confirmation-table-retrait">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Client</th>
-              <th>Type</th>
-              <th>Montant</th>
-              <th>Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <!-- Confirmation Dépôt -->
-      <button id="access-confirmation-depot">Accéder au Tableau de Confirmation Dépôt</button>
-      <div id="confirmation-area-depot" style="display:none;">
-        <table id="confirmation-table-depot">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Client</th>
-              <th>Type</th>
-              <th>Montant</th>
-              <th>Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+    <!-- Section: Historique -->
+    <section id="historique">
+      <h2>Historique</h2>
+      <div id="historique-container">
+        <!-- Historique des transactions s'affichera ici -->
       </div>
     </section>
-
-    <!-- Section 4 : Historique -->
-    <section id="section-historique" class="section">
-      <h2>Historique des Transactions</h2>
-      <table id="historique-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Client</th>
-            <th>Type</th>
-            <th>Montant</th>
-            <th>Date</th>
-            <th>Résultat</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    
+    <!-- Section: Tabilao de Confirmation (Admin) -->
+    <section id="confirmation-table">
+      <h2>Recherche sur EVO FINANCE </h2>
+      <div id="confirmation-access">
+        <label for="admin-code">Code d'accès :</label>
+        <input type="password" id="admin-code" placeholder="Entrer le code d'accès">
+        <button id="btn-show-confirmation">Afficher</button>
+      </div>
+      <div id="confirmation-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Montant</th>
+              <th>Adresse / Email</th>
+              <th>ID Transaction</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="confirmation-body">
+            <!-- Les lignes seront insérées ici -->
+          </tbody>
+        </table>
+      </div>
     </section>
   </div>
-
-
-
-
-  <!-- Zone de Notification Centrée -->
-  <div id="center-notification"></div>
-  <!-- Journal des Notifications -->
-  <div id="notification-log"></div>
-
-  <!-- Script JavaScript Principal -->
-  <script>
-    /********* Toggle Menu *********/
-    const menuButton = document.getElementById("menu-button");
-    const sideMenu = document.getElementById("side-menu");
-    menuButton.addEventListener("click", () => {
-      sideMenu.style.display = (sideMenu.style.display === "none" || sideMenu.style.display === "") ? "block" : "none";
-    });
-
-    /********* Gestion du Profil *********/
-    const fileInput = document.getElementById("file-input");
-    const profilePic = document.getElementById("profile-pic");
-    const uploadBtn = document.getElementById("upload-btn");
-    uploadBtn.addEventListener("click", () => { fileInput.click(); });
-    fileInput.addEventListener("change", function() {
-      const file = this.files[0];
-      if(file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          profilePic.src = e.target.result;
-          localStorage.setItem("profilePic", e.target.result);
-        }
-        reader.readAsDataURL(file);
-      }
-    });
-    const storedPic = localStorage.getItem("profilePic");
-    if(storedPic) { profilePic.src = storedPic; }
-
-    /********* Gestion du Service Client *********/
-    document.getElementById("service-client").addEventListener("click", () => {
-      window.open("https://www.facebook.com/profile.php?id=61573270100474", "_blank");
-    });
-
-    /********* Gestion des Annonces Supprimables *********/
-    // Pour l'annonce secondaire (contenu)
-    document.getElementById("close-announcement").addEventListener("click", function() {
-      document.getElementById("announcement").style.display = "none";
-    });
-    // La fermeture de l'annonce centrale est gérée directement dans l'attribut onclick
-
-    /********* Variables & Initialisation *********/
-    let soldeDepot = parseFloat(localStorage.getItem("soldeDepot")) || 0;
-    let soldeGains = parseFloat(localStorage.getItem("soldeGains")) || 0;
-    let lastTradingDate = localStorage.getItem("lastTradingDate") || "";
-    let lastDeposit = localStorage.getItem("lastDeposit") || "";
-    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-    const clientID = "Client1";
-    const currentUserPhone = "0341234567";
-    let registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || {};
-    if(!registeredUsers[currentUserPhone]) {
-      registeredUsers[currentUserPhone] = { soldeGains: soldeGains, soldeDepot: soldeDepot };
-      localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
-    }
-
-    function updateBalances() {
-      document.getElementById("soldeDepot").innerText = soldeDepot.toFixed(2);
-      document.getElementById("soldeGains").innerText = soldeGains.toFixed(2);
-      localStorage.setItem("soldeDepot", soldeDepot);
-      localStorage.setItem("soldeGains", soldeGains);
-      registeredUsers[currentUserPhone].soldeGains = soldeGains;
-      registeredUsers[currentUserPhone].soldeDepot = soldeDepot;
-      localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
-    }
-    function addLog(message) {
-      const log = document.getElementById("notification-log");
-      const p = document.createElement("p");
-      p.innerText = message;
-      log.appendChild(p);
-    }
-    function showCenteredNotification(htmlContent, duration) {
-      const centerNotif = document.getElementById("center-notification");
-      centerNotif.innerHTML = htmlContent;
-      centerNotif.style.display = "block";
-      if(duration){ setTimeout(() => { centerNotif.style.display = "none"; }, duration); }
-    }
-    function showTopNotification(message, duration) {
-      const topNotif = document.getElementById("top-notification");
-      topNotif.innerText = message;
-      topNotif.style.display = "block";
-      setTimeout(() => { topNotif.style.display = "none"; }, duration);
-    }
-    updateBalances();
-
-    /********* SECTION 1 : COMMENCER À TRADING *********/
-    document.getElementById("start-trading").addEventListener("click", function(){
-      const today = new Date().toDateString();
-      if(lastTradingDate === today) {
-        alert("Vous ne pouvez commencer à trading qu'une fois par jour.");
+  
+  <!-- Section: Registre CIN (ho an'ireo tsy mbola voasoratra) – aseho amin'ny farany ambany -->
+  <section id="registration-cin">
+    <h2>Enregistrement CIN</h2>
+    <form id="form-registration-cin">
+      <label for="reg-email">E-mail :</label>
+      <input type="email" id="reg-email" required>
+      <label for="reg-cin">Numero de CIN :</label>
+      <input type="text" id="reg-cin" required>
+      <label for="reg-nom">Nom complet :</label>
+      <input type="text" id="reg-nom" required>
+      <label for="reg-password">Mot de passe :</label>
+      <input type="password" id="reg-password" required>
+      <button type="submit">Enregistrer</button>
+    </form>
+  </section>
+  
+  <!-- Section: Vérification CIN -->
+  <section id="verification-cin">
+    <h2>Vérification CIN</h2>
+    <form id="form-verification-cin">
+      <label for="verification-email">E-mail :</label>
+      <input type="email" id="verification-email" required>
+      <label for="verification-cin-input">Numero de CIN :</label>
+      <input type="text" id="verification-cin-input" required>
+      <label for="verification-password">Mot de passe :</label>
+      <input type="password" id="verification-password" required>
+      <button type="submit">Vérifier</button>
+    </form>
+  </section>
+  
+  <!-- Firebase & Logique -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+    import { getFirestore, collection, addDoc, doc, updateDoc, setDoc, getDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyDbAk8VyG7gfzmmFAFLAnUtUi1XrSNrQQQ",
+      authDomain: "evo-finance-service.firebaseapp.com",
+      projectId: "evo-finance-service",
+      storageBucket: "evo-finance-service.appspot.com",
+      messagingSenderId: "231632509264",
+      appId: "1:231632509264:web:03cf6b9e2ef75a4f7bb455",
+      measurementId: "G-2561NK5LL8"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    
+    // Global variable for current user (après verification)
+    let currentUser = null;
+    let soldeDepot = 0;
+    let soldeGains = 0;
+    let currentGain = 0;
+    
+    // --- Formulaire Registre CIN ---
+    document.getElementById('form-registration-cin').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('reg-email').value.trim();
+      const cin = document.getElementById('reg-cin').value.trim();
+      const nom = document.getElementById('reg-nom').value.trim();
+      const password = document.getElementById('reg-password').value;
+      if(!email || !cin || !nom || !password) {
+        showNotification("Veuillez remplir tous les champs pour l'enregistrement.");
         return;
       }
-      if(soldeDepot < 15) {
-        alert("Un dépôt minimum de $15 est requis pour commencer à trading.");
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        // Enregistrer les données dans Firestore, avec verified = false
+        await setDoc(doc(db, "utilisateurs", user.uid), { email, cin, nom, verified: false, timestamp: new Date() });
+        // Créer un document balances pour cet utilisateur
+        await setDoc(doc(db, "balances", user.uid), { soldeDepot: 0, soldeGains: 0 });
+        showNotification("Enregistrement CIN réussi. Veuillez ensuite vérifier votre CIN.");
+      } catch (error) {
+        console.error("Erreur lors de l'enregistrement CIN: ", error);
+        showNotification("Erreur: " + error.message);
+      }
+    });
+    
+    // --- Formulaire Vérification CIN ---
+    document.getElementById('form-verification-cin').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('verification-email').value.trim();
+      const cinInput = document.getElementById('verification-cin-input').value.trim();
+      const password = document.getElementById('verification-password').value;
+      if(!email || !cinInput || !password) {
+        showNotification("Veuillez remplir tous les champs.");
         return;
       }
-      let percentage = 0.025;
-      if(soldeDepot >= 1000) { percentage = 0.027; }
-      else if(soldeDepot >= 200) { percentage = 0.026; }
-      const gain = soldeDepot * percentage;
-      const tradingStepsDiv = document.getElementById("trading-steps");
-      tradingStepsDiv.innerHTML = "";
-      const steps = [
-        "Commencement du trading",
-        "En attente de prix",
-        "Achat",
-        "Vente",
-        "Tâche terminée"
-      ];
-      let i = 0;
-      function showStep() {
-        tradingStepsDiv.innerHTML += "<p>" + steps[i] + "</p>";
-        i++;
-        if(i < steps.length) { setTimeout(showStep, 3000); }
-        else {
-          showCenteredNotification(
-            "Tâche terminée !<br>Gains potentiels : $"+ gain.toFixed(2) +
-            "<br><button id='btn-valider-gain'>OK</button>"
-          );
-          document.getElementById("btn-valider-gain").addEventListener("click", function(){
-            soldeGains += gain;
-            updateBalances();
-            addLog("Trading confirmé : Gain de $" + gain.toFixed(2) + " ajouté.");
-            let tradingTx = {
-              id: Date.now() + 1000,
-              client: clientID,
-              type: "Gain Trading",
-              amount: gain,
-              date: new Date().toLocaleString(),
-              status: "Confirmé"
-            };
-            transactions.push(tradingTx);
-            localStorage.setItem("transactions", JSON.stringify(transactions));
-            showTopNotification("Trading terminé! Gains totaux: $" + soldeGains.toFixed(2), 3000);
-            document.getElementById("center-notification").style.display = "none";
-            lastTradingDate = today;
-            localStorage.setItem("lastTradingDate", today);
-          });
-        }
-      }
-      showStep();
-    });
-
-    /********* Section 2 : Transactions *********/
-    // Lors du clic sur le bouton Dépôt, on vérifie si la capacité est pleine.
-    document.getElementById("btn-depot").addEventListener("click", function(){
-      const tradingCapacityFull = true; // À ajuster selon la logique réelle
-      if (tradingCapacityFull) {
-        showTopNotification("La capacité maximale de trading est atteinte. Veuillez rejoindre notre Plan d'investissement pour profiter de nos services.", 3000);
-        return;
-      }
-      document.getElementById("form-depot").style.display = "block";
-      document.getElementById("form-retrait").style.display = "none";
-      document.getElementById("form-transfert").style.display = "none";
-    });
-    document.getElementById("btn-retrait").addEventListener("click", function(){
-      document.getElementById("form-retrait").style.display = "block";
-      document.getElementById("form-depot").style.display = "none";
-      document.getElementById("form-transfert").style.display = "none";
-    });
-    document.getElementById("btn-transfert").addEventListener("click", function(){
-      document.getElementById("form-transfert").style.display = "block";
-      document.getElementById("form-depot").style.display = "none";
-      document.getElementById("form-retrait").style.display = "none";
-    });
-    document.getElementById("copy-depot-address").addEventListener("click", function(){
-      const select = document.getElementById("depot-address");
-      const addr = select.options[select.selectedIndex].getAttribute("data-address");
-      navigator.clipboard.writeText(addr)
-        .then(() => { alert("Adresse copiée : " + addr); })
-        .catch(() => { alert("Erreur lors de la copie de l'adresse."); });
-    });
-    document.getElementById("submit-depot").addEventListener("click", function(){
-      const amount = parseFloat(document.getElementById("depot-amount").value);
-      const select = document.getElementById("depot-address");
-      const addr = select.options[select.selectedIndex].getAttribute("data-address");
-      if(isNaN(amount) || amount <= 0) { alert("Montant invalide."); return; }
-      const today = new Date().toDateString();
-      if(lastDeposit === today) {
-        alert("Vous ne pouvez déposer qu'une fois par jour.");
-        return;
-      }
-      const tx = {
-        id: Date.now(),
-        client: clientID,
-        type: "Dépôt",
-        amount: amount,
-        address: addr,
-        date: new Date().toLocaleString(),
-        status: "En attente"
-      };
-      transactions.push(tx);
-      localStorage.setItem("transactions", JSON.stringify(transactions));
-      lastDeposit = today;
-      localStorage.setItem("lastDeposit", today);
-      showCenteredNotification("Dépôt en attente de vérification.", 3000);
-      addLog("Dépôt en attente de vérification : $" + amount.toFixed(2));
-      document.getElementById("form-depot").style.display = "none";
-    });
-    document.getElementById("submit-retrait").addEventListener("click", function(){
-      const amount = parseFloat(document.getElementById("retrait-amount").value);
-      const addr = document.getElementById("retrait-address").value.trim();
-      if(isNaN(amount) || amount <= 0) { alert("Montant invalide."); return; }
-      if(amount < 1) { alert("Montant minimum de retrait est $1."); return; }
-      if(new Date().getDay() !== 1) {
-        alert("Les retraits ne sont autorisés que le lundi.");
-        return;
-      }
-      if(!(addr.startsWith("0x") || addr.startsWith("P"))) {
-        alert("Adresse invalide. Pour USDT BEP20, l'adresse doit commencer par '0x'. Pour PAYEER, par 'P'.");
-        return;
-      }
-      const tx = {
-        id: Date.now(),
-        client: clientID,
-        type: "Retrait",
-        amount: amount,
-        address: addr,
-        date: new Date().toLocaleString(),
-        status: "En attente"
-      };
-      transactions.push(tx);
-      localStorage.setItem("transactions", JSON.stringify(transactions));
-      showCenteredNotification("Retrait en attente de vérification.", 3000);
-      addLog("Retrait en attente de vérification : $" + amount.toFixed(2));
-      document.getElementById("form-retrait").style.display = "none";
-    });
-    document.getElementById("submit-transfert").addEventListener("click", function(){
-      const transferAmount = parseFloat(document.getElementById("transfer-amount").value);
-      const targetPhone = document.getElementById("transfer-phone").value.trim();
-      if(isNaN(transferAmount) || transferAmount <= 0) {
-        alert("Montant invalide.");
-        return;
-      }
-      if(transferAmount > soldeGains) {
-        alert("Solde gains insuffisant pour ce transfert.");
-        return;
-      }
-      if(!targetPhone) {
-        alert("Veuillez entrer un numéro de téléphone valide.");
-        return;
-      }
-      registeredUsers[currentUserPhone].soldeGains -= transferAmount;
-      if(!registeredUsers[targetPhone]) {
-        registeredUsers[targetPhone] = { soldeGains: 0, soldeDepot: transferAmount };
-      } else {
-        registeredUsers[targetPhone].soldeDepot += transferAmount;
-      }
-      soldeGains = registeredUsers[currentUserPhone].soldeGains;
-      localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
-      updateBalances();
-      addLog("Transfert de $" + transferAmount.toFixed(2) + " vers " + targetPhone + " effectué.");
-      showTopNotification("Transfert réussi!", 3000);
-      document.getElementById("form-transfert").style.display = "none";
-    });
-
-    /********* Section 3 : Confirmation *********/
-    document.getElementById("access-confirmation-retrait").addEventListener("click", function(){
-      const code = prompt("Veuillez entrer le code d'accès pour confirmation retrait :");
-      if(code === "080600"){
-        document.getElementById("confirmation-area-retrait").style.display = "block";
-        updateConfirmationTableRetrait();
-      } else {
-        alert("Code incorrect !");
-      }
-    });
-    document.getElementById("access-confirmation-depot").addEventListener("click", function(){
-      const code = prompt("Veuillez entrer le code d'accès pour confirmation dépôt :");
-      if(code === "206800"){
-        document.getElementById("confirmation-area-depot").style.display = "block";
-        updateConfirmationTableDepot();
-      } else {
-        alert("Code incorrect !");
-      }
-    });
-    function updateConfirmationTableRetrait() {
-      const tbody = document.querySelector("#confirmation-table-retrait tbody");
-      tbody.innerHTML = "";
-      transactions.filter(t => t.status === "En attente" && t.type === "Retrait")
-        .forEach(t => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${t.id}</td>
-            <td>${t.client}</td>
-            <td>${t.type}</td>
-            <td>$${t.amount.toFixed(2)}</td>
-            <td>${t.date}</td>
-            <td>
-              <button onclick="confirmTx(${t.id})">Confirmer</button>
-              <button onclick="cancelTx(${t.id})">Annuler</button>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-    }
-    function updateConfirmationTableDepot() {
-      const tbody = document.querySelector("#confirmation-table-depot tbody");
-      tbody.innerHTML = "";
-      transactions.filter(t => t.status === "En attente" && t.type === "Dépôt")
-        .forEach(t => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${t.id}</td>
-            <td>${t.client}</td>
-            <td>${t.type}</td>
-            <td>$${t.amount.toFixed(2)}</td>
-            <td>${t.date}</td>
-            <td>
-              <button onclick="confirmTx(${t.id})">Confirmer</button>
-              <button onclick="cancelTx(${t.id})">Annuler</button>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-    }
-
-    /********* Section 4 : Historique *********/
-    function updateHistoriqueTable() {
-      const tbody = document.querySelector("#historique-table tbody");
-      tbody.innerHTML = "";
-      transactions.filter(t => t.status === "Confirmé" || t.status === "Annulé")
-        .forEach(t => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${t.id}</td>
-            <td>${t.client}</td>
-            <td>${t.type}</td>
-            <td>$${t.amount.toFixed(2)}</td>
-            <td>${t.date}</td>
-            <td>${t.status === "Confirmé" ? "Succès" : "Échec"}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-    }
-
-    /********* Fonctions Globales de Confirmation / Annulation *********/
-    window.confirmTx = function(id) {
-      const index = transactions.findIndex(t => t.id === id);
-      if(index > -1) {
-        const t = transactions[index];
-        if(t.type === "Dépôt") {
-          soldeDepot += t.amount;
-          if(t.amount >= 15) {
-            soldeGains += 1;
-            addLog("Bonus de $1 ajouté aux gains pour le dépôt (ID: " + t.id + ").");
-            let bonusTx = {
-              id: Date.now() + 2000,
-              client: clientID,
-              type: "Bonus dépôt",
-              amount: 1,
-              date: new Date().toLocaleString(),
-              status: "Confirmé"
-            };
-            transactions.push(bonusTx);
-            localStorage.setItem("transactions", JSON.stringify(transactions));
-          }
-        } else if(t.type === "Retrait") {
-          const originalAmount = t.amount;
-          const fee = originalAmount * 0.10;
-          const netWithdrawal = originalAmount - fee;
-          if(soldeGains >= originalAmount) {
-            soldeGains -= originalAmount;
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const userRef = doc(db, "utilisateurs", user.uid);
+        const userSnap = await getDoc(userRef);
+        if(userSnap.exists()){
+          const userData = userSnap.data();
+          if(userData.cin === cinInput){
+            currentUser = { uid: user.uid, email, cin: cinInput, ...userData };
+            await updateDoc(userRef, { verified: true });
+            showNotification("Vérification réussie.");
+            document.getElementById('main-content').style.display = "block";
+            // Afeno ny fizarana registre sy verification
+            document.getElementById('registration-cin').style.display = "none";
+            document.getElementById('verification-cin').style.display = "none";
+            loadBalance();
           } else {
-            alert("Solde des gains insuffisant pour ce retrait.");
+            showNotification("Le numéro de CIN ne correspond pas.");
+          }
+        } else {
+          showNotification("Utilisateur introuvable.");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la vérification: ", error);
+        showNotification("Erreur: " + error.message);
+      }
+    });
+    
+    async function loadBalance() {
+      if(currentUser) {
+        const balanceRef = doc(db, "balances", currentUser.uid);
+        const balanceSnap = await getDoc(balanceRef);
+        if(balanceSnap.exists()){
+          const data = balanceSnap.data();
+          soldeDepot = data.soldeDepot || 0;
+          soldeGains = data.soldeGains || 0;
+        } else {
+          await setDoc(balanceRef, { soldeDepot: 0, soldeGains: 0 });
+          soldeDepot = 0;
+          soldeGains = 0;
+        }
+        updateBalances();
+      }
+    }
+    
+    async function updateBalances() {
+      document.getElementById('soldeDepot').innerText = soldeDepot.toFixed(2) + "$";
+      document.getElementById('soldeGains').innerText = soldeGains.toFixed(2) + "$";
+      if(currentUser){
+        await setDoc(doc(db, "balances", currentUser.uid), { soldeDepot, soldeGains }, { merge: true });
+      }
+    }
+    
+    function showNotification(message) {
+      const notif = document.createElement("div");
+      notif.className = "notification";
+      notif.innerText = message;
+      document.body.appendChild(notif);
+      setTimeout(() => { notif.remove(); }, 2000);
+    }
+    
+    async function addHistorique(type, montant, fee = 0) {
+      try {
+        await addDoc(collection(db, "historique"), { type, montant, fee, timestamp: new Date() });
+        const histContainer = document.getElementById('historique-container');
+        const item = document.createElement('div');
+        item.className = "historique-item";
+        item.innerText = type + " - Montant: " + montant + "$" + (fee ? " - Frais: " + fee + "$" : "");
+        histContainer.prepend(item);
+      } catch (error) {
+        console.error("Erreur lors de l'ajout de l'historique: ", error);
+      }
+    }
+    
+    // --- Formulaires Transaction ---
+    document.getElementById('btn-depot').addEventListener('click', () => {
+      if(!currentUser) {
+        showNotification("Veuillez vérifier votre CIN d'abord.");
+        return;
+      }
+      hideAllForms();
+      document.getElementById('form-depot').style.display = 'block';
+    });
+    document.getElementById('btn-retrait').addEventListener('click', () => {
+      if(!currentUser) {
+        showNotification("Veuillez vérifier votre CIN d'abord.");
+        return;
+      }
+      hideAllForms();
+      document.getElementById('form-retrait').style.display = 'block';
+    });
+    document.getElementById('btn-transfert').addEventListener('click', () => {
+      if(!currentUser) {
+        showNotification("Veuillez vérifier votre CIN d'abord.");
+        return;
+      }
+      hideAllForms();
+      document.getElementById('form-transfert').style.display = 'block';
+    });
+    function hideAllForms() {
+      document.getElementById('form-depot').style.display = 'none';
+      document.getElementById('form-retrait').style.display = 'none';
+      document.getElementById('form-transfert').style.display = 'none';
+    }
+    
+    window.copyAdresse = function() {
+      const select = document.getElementById('adresse-depot');
+      const address = select.value;
+      navigator.clipboard.writeText(address).then(() => {
+        showNotification("Adresse copiée: " + address);
+      });
+    };
+    
+    // Dépôt
+    document.getElementById('form-depot').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if(!currentUser) {
+        showNotification("Veuillez vérifier votre CIN pour effectuer cette opération.");
+        return;
+      }
+      const montant = parseFloat(document.getElementById('depot-montant').value);
+      if(montant < 10) {
+        showNotification("Le dépôt minimum est de 10$");
+        return;
+      }
+      const adresse = document.getElementById('adresse-depot').value;
+      const idTransaction = document.getElementById('id-transaction').value;
+      try {
+        await addDoc(collection(db, "depots"), {
+          montant, adresse, idTransaction,
+          status: "pending",
+          timestamp: new Date()
+        });
+        showNotification("Demande de dépôt envoyée");
+      } catch (error) {
+        console.error("Erreur lors du dépôt: ", error);
+      }
+    });
+    
+    // Retrait
+    document.getElementById('form-retrait').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if(!currentUser) {
+        showNotification("Veuillez vérifier votre CIN pour effectuer cette opération.");
+        return;
+      }
+      const montant = parseFloat(document.getElementById('retrait-montant').value);
+      if(montant < 1) {
+        showNotification("Le retrait minimum est de 1$");
+        return;
+      }
+      const adresseRetrait = document.getElementById('adresse-retrait').value;
+      try {
+        await addDoc(collection(db, "retraits"), {
+          montant, adresseRetrait,
+          status: "pending",
+          timestamp: new Date()
+        });
+        showNotification("Demande de retrait envoyée");
+      } catch (error) {
+        console.error("Erreur lors du retrait: ", error);
+      }
+    });
+    
+    // Transfert d'argent
+    document.getElementById('form-transfert').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if(!currentUser) {
+        showNotification("Veuillez vérifier votre CIN pour effectuer cette opération.");
+        return;
+      }
+      const montant = parseFloat(document.getElementById('transfert-montant').value);
+      if(montant < 5) {
+        showNotification("Le transfert minimum est de 5$");
+        return;
+      }
+      const emailUtilisateur = document.getElementById('email-utilisateur').value;
+      if(emailUtilisateur === currentUser.email) {
+        showNotification("Vous ne pouvez pas effectuer de transfert vers votre propre compte.");
+        return;
+      }
+      const receptionType = document.getElementById('reception-type').value;
+      const fee = montant * 0.05;
+      if(soldeGains < (montant + fee)) {
+        showNotification("Solde insuffisant pour le transfert.");
+        return;
+      }
+      const recipientQuery = query(collection(db, "utilisateurs"), where("email", "==", emailUtilisateur));
+      const recipientSnapshot = await getDocs(recipientQuery);
+      if(recipientSnapshot.empty) {
+        showNotification("Utilisateur non trouvé pour cet email.");
+        return;
+      }
+      const recipientDoc = recipientSnapshot.docs[0];
+      const recipientUid = recipientDoc.id;
+      soldeGains -= (montant + fee);
+      await updateBalances();
+      const recipientBalanceRef = doc(db, "balances", recipientUid);
+      const recipientBalanceSnap = await getDoc(recipientBalanceRef);
+      let recipientSolde = 0;
+      if(recipientBalanceSnap.exists()){
+        recipientSolde = recipientBalanceSnap.data()[receptionType === "depot" ? "soldeDepot" : "soldeGains"] || 0;
+      }
+      recipientSolde += montant;
+      await setDoc(recipientBalanceRef, { [receptionType === "depot" ? "soldeDepot" : "soldeGains"]: recipientSolde }, { merge: true });
+      await addDoc(collection(db, "transferts"), {
+        montant, emailUtilisateur, fee, receptionType,
+        status: "confirmed",
+        timestamp: new Date()
+      });
+      addHistorique("Transfert", montant, fee);
+      showNotification("Transfert effectué vers " + emailUtilisateur);
+    });
+    
+    // --- Section TRADING (Automatique, une fois par 24h) ---
+    const tradingButton = document.getElementById('btn-trading');
+    const tradingStatus = document.getElementById('trading-status');
+    const notificationTrading = document.getElementById('notification-trading');
+    
+    tradingButton.addEventListener('click', async () => {
+      if(!currentUser) {
+        showNotification("Veuillez vérifier votre CIN pour effectuer cette opération.");
+        return;
+      }
+      const balanceRef = doc(db, "balances", currentUser.uid);
+      const balanceSnap = await getDoc(balanceRef);
+      if(balanceSnap.exists()){
+        const data = balanceSnap.data();
+        if(data.lastTrading) {
+          const lastTradingTime = data.lastTrading.toDate ? data.lastTrading.toDate() : data.lastTrading;
+          const now = new Date();
+          if(now - lastTradingTime < 24 * 60 * 60 * 1000) {
+            showNotification("Trading déjà effectué. Veuillez patienter 24h.");
             return;
           }
-          t.fee = fee;
-          t.amount = netWithdrawal;
-        }
-        t.status = "Confirmé";
-        localStorage.setItem("transactions", JSON.stringify(transactions));
-        updateBalances();
-        updateConfirmationTableDepot();
-        updateConfirmationTableRetrait();
-        updateHistoriqueTable();
-        addLog("Transaction confirmée (ID: " + t.id + ")");
-        if(t.type === "Dépôt") {
-          showTopNotification("Dépôt confirmé et bonus si applicable.", 3000);
-        } else if(t.type === "Retrait") {
-          showTopNotification("Retrait confirmé. Montant net: $" + t.amount.toFixed(2), 3000);
         }
       }
-    };
-
-    window.cancelTx = function(id) {
-      const index = transactions.findIndex(t => t.id === id);
-      if(index > -1) {
-        const t = transactions[index];
-        t.status = "Annulé";
-        localStorage.setItem("transactions", JSON.stringify(transactions));
-        updateConfirmationTableDepot();
-        updateConfirmationTableRetrait();
-        updateHistoriqueTable();
-        addLog("Transaction annulée (ID: " + t.id + ")");
-      }
-    };
-
-    /********* Mise à jour au chargement *********/
-    updateHistoriqueTable();
-
-    /********* Navigation par Sections *********/
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll("section");
-      sections.forEach(section => {
-        section.classList.remove("active");
-      });
-      document.getElementById(sectionId).classList.add("active");
-      
-      // Mise à jour des boutons de navigation en bas
-      const buttons = document.querySelectorAll(".bottom-nav button");
-      buttons.forEach(btn => {
-        btn.classList.remove("active");
-      });
-      document.querySelector(`.bottom-nav button[data-section="${sectionId}"]`).classList.add("active");
-    }
-
-    document.addEventListener("DOMContentLoaded", function(){
-      showSection("section-solde");
+      tradingButton.disabled = true;
+      tradingStatus.innerText = "Acheter";
+      setTimeout(() => {
+        tradingStatus.innerText = "Vendre";
+        setTimeout(async () => {
+          tradingStatus.innerText = "Tâche terminée";
+          if(soldeDepot >= 10 && soldeDepot < 200) {
+            currentGain = soldeDepot * 0.025;
+          } else if(soldeDepot >= 200 && soldeDepot < 500) {
+            currentGain = soldeDepot * 0.026;
+          } else if(soldeDepot >= 500) {
+            currentGain = soldeDepot * 0.03;
+          } else {
+            currentGain = 0;
+          }
+          document.getElementById("gain-robot").innerText = currentGain.toFixed(2) + "$";
+          notificationTrading.style.display = "block";
+          await setDoc(doc(db, "balances", currentUser.uid), { lastTrading: new Date() }, { merge: true });
+        }, 5000);
+      }, 5000);
     });
-  </script>
-
-  <!-- Navigation par onglets en bas -->
-  <div class="bottom-nav">
-    <button data-section="section-solde" onclick="showSection('section-solde')">Solde & Trading</button>
-    <button data-section="section-transaction" onclick="showSection('section-transaction')">Transactions</button>
-    <button data-section="section-confirmation" onclick="showSection('section-confirmation')">Confirmation</button>
-    <button data-section="section-historique" onclick="showSection('section-historique')">Historique</button>
-  </div>
-</body>
-
-<!-- JavaScript hanovàna ny section hita -->
-  <script>
-    function showSection(sectionId) {
-      // Maka ireo sections rehetra ary afenina
-      var sections = document.getElementsByClassName('section');
-      for (var i = 0; i < sections.length; i++) {
-        sections[i].classList.remove('active');
+    
+    document.getElementById('btn-ajouter-gains').addEventListener('click', () => {
+      if(currentGain > 0) {
+        soldeGains += currentGain;
+        updateBalances();
+        showNotification("Gains ajoutés: " + currentGain.toFixed(2) + "$");
+        currentGain = 0;
+        notificationTrading.style.display = "none";
+      } else {
+        showNotification("Trading déjà effectué ou aucun gain disponible.");
       }
-      // Asehoy ilay section mifanaraka amin'ny ID nomena
-      document.getElementById(sectionId).classList.add('active');
+    });
+    // --- Fin TRADING ---
+    
+    // --- Tabilao de Confirmation (Admin) ---
+    document.getElementById('btn-show-confirmation').addEventListener('click', () => {
+      const adminCode = document.getElementById('admin-code').value;
+      if(adminCode === "080600") {
+        document.getElementById('confirmation-container').style.display = "block";
+        refreshConfirmationTable();
+      } else {
+        showNotification("Code d'accès incorrect !");
+      }
+    });
+    
+    async function refreshConfirmationTable() {
+      const tbody = document.getElementById('confirmation-body');
+      tbody.innerHTML = "";
+      const depotQuery = query(collection(db, "depots"), where("status", "==", "pending"));
+      const depotSnapshot = await getDocs(depotQuery);
+      depotSnapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>Dépôt</td>
+                        <td>${data.montant}$</td>
+                        <td>${data.adresse}</td>
+                        <td>${data.idTransaction}</td>
+                        <td>
+                          <button onclick="confirmTransaction('${docSnap.id}', 'depot', ${data.montant})">Confirmer</button>
+                          <button onclick="cancelTransaction('${docSnap.id}', 'depot')">Annuler</button>
+                        </td>`;
+        tbody.appendChild(tr);
+      });
+      const retraitQuery = query(collection(db, "retraits"), where("status", "==", "pending"));
+      const retraitSnapshot = await getDocs(retraitQuery);
+      retraitSnapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>Retrait</td>
+                        <td>${data.montant}$</td>
+                        <td>${data.adresseRetrait}</td>
+                        <td>-</td>
+                        <td>
+                          <button onclick="confirmTransaction('${docSnap.id}', 'retrait', ${data.montant})">Confirmer</button>
+                          <button onclick="cancelTransaction('${docSnap.id}', 'retrait')">Annuler</button>
+                        </td>`;
+        tbody.appendChild(tr);
+      });
     }
+    
+    window.confirmTransaction = async function(docId, type, montant) {
+      const adminCode = document.getElementById('admin-code').value;
+      if(adminCode !== "080600") {
+        showNotification("Code d'accès incorrect !");
+        return;
+      }
+      if(type === "depot") {
+        try {
+          await updateDoc(doc(db, "depots", docId), { status: "confirmed" });
+          soldeDepot += montant;
+          await updateBalances();
+          addHistorique("Dépôt", montant);
+          showNotification("Dépôt confirmé");
+          refreshConfirmationTable();
+        } catch (err) {
+          console.error("Erreur lors de la confirmation du dépôt", err);
+        }
+      } else if(type === "retrait") {
+        try {
+          const fee = montant * 0.10;
+          if(soldeGains >= montant) {
+            await updateDoc(doc(db, "retraits", docId), { status: "confirmed" });
+            soldeGains -= montant;
+            await updateBalances();
+            addHistorique("Retrait", montant - fee, fee);
+            showNotification("Retrait confirmé (frais: " + fee + "$)");
+            refreshConfirmationTable();
+          } else {
+            showNotification("Solde insuffisant pour le retrait.");
+          }
+        } catch (err) {
+          console.error("Erreur lors de la confirmation du retrait", err);
+        }
+      }
+    }
+    
+    window.cancelTransaction = async function(docId, type) {
+      const adminCode = document.getElementById('admin-code').value;
+      if(adminCode !== "080600") {
+        showNotification("Code d'accès incorrect !");
+        return;
+      }
+      try {
+        await updateDoc(doc(db, type === "depot" ? "depots" : "retraits", docId), { status: "annuler" });
+        showNotification(type === "depot" ? "Dépôt annulé" : "Retrait annulé");
+        refreshConfirmationTable();
+      } catch (err) {
+        console.error("Erreur lors de l'annulation", err);
+      }
+    }
+    
+    updateBalances();
   </script>
-</html>
+</body>
+  </html>
