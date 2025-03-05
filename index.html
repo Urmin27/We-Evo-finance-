@@ -1,4 +1,4 @@
-https://<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="mg">
 <head>
   <meta charset="UTF-8">
@@ -243,12 +243,184 @@ https://<!DOCTYPE html>
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       z-index: 1000;
     }
+    
+    
+    
+    /* Styles généraux */
+#extra-sections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    background: linear-gradient(to right, #0a3d62, #1e3799);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Boutons de lien */
+.link-button {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, #78c7ff, #4a69bd);
+    padding: 12px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet au survol */
+.link-button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(to right, #4a69bd, #78c7ff);
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Effet de dessin (animation sous le bouton) */
+.link-button::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.4s ease-in-out;
+}
+
+.link-button:hover::after {
+    left: 100%;
+}
+
+
+
+
+
+
+
+/* En-tête de profil */
+.profile-header {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Zone de la photo de couverture */
+.cover-photo {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  background: linear-gradient(to right, #0a3d62, #1e3799);
+}
+
+.cover-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Bouton d'upload (pour couverture et profil) */
+.upload-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.upload-button:hover {
+  background-color: rgba(0,0,0,0.7);
+}
+
+/* Zone de la photo de profil */
+.profile-photo-container {
+  position: absolute;
+  left: 20px;
+  bottom: -50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Photo de profil circulaire */
+.profile-photo {
+  width: 100px;
+  height: 100px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  background: #fff;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Modal pour agrandir l'image */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80%;
+  margin-top: 5%;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Responsive design pour petits écrans */
+@media screen and (max-width: 600px) {
+  .profile-photo-container {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
   </style>
 </head>
 <body>
   <header>
-    <h1>EVO Finance Service</h1>
-  </header>
+    <h1>EVO Finance Service</h1>((((()))))
+  </header>()
   
   
   
@@ -266,8 +438,44 @@ https://<!DOCTYPE html>
 <noscript><a href="https://www.livechat.com/chat-with/19042465/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
 <!-- End of LiveChat code -->
 
+
+
+
+
+
+
+
+
+
+  
+
   <!-- Main Content (miseho rehefa efa voamarina ny CIN) -->
+  
+
   <div id="main-content">
+      
+      
+            <section><!-- Section En-tête avec photo de couverture et photo de profil -->
+  <div class="profile-header">
+    <!-- Photo de couverture -->
+    <div class="cover-photo" id="coverPhoto">
+      <img src="cover-placeholder.jpg" alt="Photo de couverture" id="coverImg">
+      <!-- Bouton d'upload (affiché sur la photo) -->
+      <button class="upload-button" id="uploadCover"></button>
+      <!-- Input caché pour uploader l'image -->
+      <input type="file" id="coverInput" accept="image/*" style="display: none;">
+    </div>
+    <!-- Photo de profil qui chevauche la couverture -->
+    <div class="profile-photo-container">
+      <div class="profile-photo" id="profilePhoto">
+        <img src="profile-placeholder.jpg" alt="Photo de profil" id="profileImg">
+      </div>
+      <!-- Bouton d'upload pour la photo de profil -->
+      <button class="upload-button" id="uploadProfile"></button>
+      <input type="file" id="profileInput" accept="image/*" style="display: none;">
+    </div>
+  </div>
+  
     <!-- Section: Mon compte -->
     <section id="mon-compte">
       <h2>Mon compte</h2>
@@ -283,6 +491,28 @@ https://<!DOCTYPE html>
       </div>
     </section>
     
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+  <!-- Modal pour afficher la photo de profil en grand -->
+  <div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg">
+  </div></section>
+  
+  
+  
+  
+    
+
+  
     <!-- Section: TRANSACTION -->
     <section id="transaction">
       <h2>Transaction</h2>
@@ -314,7 +544,7 @@ https://<!DOCTYPE html>
           <label for="retrait-montant">Montant à retrait:</label>
           <input type="number" id="retrait-montant" min="1" placeholder="Minimum 1$" required>
           <label for="adresse-retrait">Adresse du retrait: PAYEER UNIQUEMENT </label>
-          <input type="text" id="adresse-retrait" required>
+          <input type="text" required>
           <button type="submit">Valider le retrait</button>
         </form>
         
@@ -347,7 +577,18 @@ https://<!DOCTYPE html>
         </div>
       </div>
     </section>
-    
+    <section>
+        
+        <!-- Section Extra : Liens vers d'autres pages -->
+  <div id="extra-sections">((()))
+    <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
+    <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
+    <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
+    <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
+    <a href="https://evo-finance-demande-du-d-p-t.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
+    <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
+    <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">plan d'investissement</a>
+  </div>
     <!-- Section: Historique -->
     <section id="historique">
       <h2>Historique</h2>
@@ -356,6 +597,7 @@ https://<!DOCTYPE html>
       </div>
     </section>
     
+    </section>
     <!-- Section: Tabilao de Confirmation (Admin) -->
     <section id="confirmation-table">
       <h2>Recherche sur EVO FINANCE </h2>
@@ -399,6 +641,11 @@ https://<!DOCTYPE html>
     </form>
   </section>
   
+  
+
+  
+  
+  
   <!-- Section: Vérification CIN -->
   <section id="verification-cin">
     <h2>Vérification CIN</h2>
@@ -411,6 +658,15 @@ https://<!DOCTYPE html>
       <input type="password" id="verification-password" required>
       <button type="submit">Vérifier</button>
     </form>
+  </section>
+  
+
+
+  <!-- Modal pour afficher la photo de profil en grand -->
+  <div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg">
+  </div>
   </section>
   
   <!-- Firebase & Logique -->
@@ -847,5 +1103,83 @@ https://<!DOCTYPE html>
     
     updateBalances();
   </script>
+  
+  
+  
+  
+  
+  
+ <script >// Fonction pour gérer l'upload et la sauvegarde dans le localStorage
+function handleFileInput(inputElement, imgElementId, storageKey) {
+  const file = inputElement.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const imgElement = document.getElementById(imgElementId);
+      imgElement.src = e.target.result;
+      // Sauvegarde de l'image dans le localStorage
+      try {
+        localStorage.setItem(storageKey, e.target.result);
+      } catch (error) {
+        console.error("Erreur lors de la sauvegarde dans localStorage", error);
+      }
+    }
+    reader.readAsDataURL(file);
+  }
+}
+
+// Au chargement de la page, récupère les images sauvegardées (si elles existent)
+document.addEventListener('DOMContentLoaded', function() {
+  const storedProfile = localStorage.getItem('profileImage');
+  if (storedProfile) {
+    document.getElementById('profileImg').src = storedProfile;
+  }
+  
+  const storedCover = localStorage.getItem('coverImage');
+  if (storedCover) {
+    document.getElementById('coverImg').src = storedCover;
+  }
+});
+
+// Ouvre la fenêtre de sélection de fichier pour la couverture
+document.getElementById('uploadCover').addEventListener('click', function() {
+  document.getElementById('coverInput').click();
+});
+
+document.getElementById('coverInput').addEventListener('change', function() {
+  handleFileInput(this, 'coverImg', 'coverImage');
+});
+
+// Ouvre la fenêtre de sélection de fichier pour la photo de profil
+document.getElementById('uploadProfile').addEventListener('click', function() {
+  document.getElementById('profileInput').click();
+});
+
+document.getElementById('profileInput').addEventListener('change', function() {
+  handleFileInput(this, 'profileImg', 'profileImage');
+});
+
+// Affichage du modal pour agrandir la photo de profil
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modalImg");
+const profilePhoto = document.getElementById("profilePhoto");
+
+profilePhoto.addEventListener('click', function() {
+  modal.style.display = "block";
+  modalImg.src = document.getElementById('profileImg').src;
+});
+
+// Fermeture du modal en cliquant sur le "×"
+document.querySelector('.close').addEventListener('click', function() {
+  modal.style.display = "none";
+});
+
+// Fermeture du modal en cliquant en dehors de l'image
+modal.addEventListener('click', function(e) {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+</script>
 </body>
   </html>
