@@ -413,8 +413,31 @@
     left: 50%;
     transform: translateX(-50%);
   }
-}
 
+<!-- service client -->
+    /* Fomba fanamboatra ny bouton */
+    .customer-service-btn {
+      position: fixed;
+      right: 20px;  /* Apetraka amin'ny sisiny havanana */
+      bottom: 20px; /* Afaka ovaina raha tiana ny toerana (eto ambany) */
+      width: 60px;
+      height: 60px;
+      background-color: #007BFF;  /* Loko manga, azonao ovaina */
+      color: #fff;
+      border-radius: 50%;         /* Manampy endrika boribory */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+
+    /* Fihetsika rehefa misy hover */
+    .customer-service-btn:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -423,30 +446,13 @@
   </header>()
   
   
+    <!-- Bouton customer service -->
+  <a href="https://service-client-evo-finance.vercel.app/" class="customer-service-btn" target="_blank">
+    <i class="fas fa-headset"></i>
+  </a>
+
   
   
-  
-  
-    <!-- Start of LiveChat (www.livechat.com) code -->
-<script>
-    window.__lc = window.__lc || {};
-    window.__lc.license = 19042465;
-    window.__lc.integration_name = "manual_channels";
-    window.__lc.product_name = "livechat";
-    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
-</script>
-<noscript><a href="https://www.livechat.com/chat-with/19042465/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
-<!-- End of LiveChat code -->
-
-
-
-
-
-
-
-
-
-
   
 
   <!-- Main Content (miseho rehefa efa voamarina ny CIN) -->
@@ -476,6 +482,12 @@
     </div>
   </div>
   
+  
+    <!-- Bouton customer service -->
+  <a href="https://service-client-evo-finance.vercel.app/" class="customer-service-btn" target="_blank">
+    <i class="fas fa-headset"></i>
+  </a>
+
     <!-- Section: Mon compte -->
     <section id="mon-compte">
       <h2>Mon compte</h2>
@@ -498,7 +510,11 @@
     
     
     
-    
+      <!-- Bouton customer service -->
+  <a href="https://service-client-evo-finance.vercel.app/" class="customer-service-btn" target="_blank">
+    <i class="fas fa-headset"></i>
+  </a>
+
 
 
   <!-- Modal pour afficher la photo de profil en grand -->
@@ -1174,7 +1190,7 @@ document.querySelector('.close').addEventListener('click', function() {
   modal.style.display = "none";
 });
 
-// Fermeture du modal en cliquant en dehors de l'image
+// Fermeture du modal en cliquant en dehors de iknik 
 modal.addEventListener('click', function(e) {
   if (e.target === modal) {
     modal.style.display = "none";
@@ -1183,3 +1199,48 @@ modal.addEventListener('click', function(e) {
 </script>
 </body>
   </html>
+
+
+<!DOCTYPE html>
+<html lang="mg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bouton Customer Service</title>
+  <!-- Ampidirina ny Font Awesome ho an'ny sary famantarana -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Fomba fanamboatra ny bouton */
+    .customer-service-btn {
+      position: fixed;
+      right: 20px;  /* Apetraka amin'ny sisiny havanana */
+      bottom: 20px; /* Afaka ovaina raha tiana ny toerana (eto ambany) */
+      width: 60px;
+      height: 60px;
+      background-color: #007BFF;  /* Loko manga, azonao ovaina */
+      color: #fff;
+      border-radius: 50%;         /* Manampy endrika boribory */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+
+    /* Fihetsika rehefa misy hover */
+    .customer-service-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Bouton customer service -->
+  <a href="https://service-client-evo-finance.vercel.app/" class="customer-service-btn" target="_blank">
+    <i class="fas fa-headset"></i>
+  </a>
+
+</body>
+</html>
