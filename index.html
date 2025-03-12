@@ -125,109 +125,323 @@
     
     
     
-    
-    
-    
-    
-        /* Import Google Font */
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap');
+    /* Container an'ny extra sections */
+#extra-sections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background: #f7f7f7;
+}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Comic Neue', sans-serif;
-      background: linear-gradient(135deg, #ffccff, #cceeff);
-      color: #333;
-      padding: 20px;
-    }
+/* Style an'ny bokotra rohy */
+.link-button {
+  position: relative;
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
 
-    /* Style pour la section des liens externes */
-    #extra-sections {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin: 40px 0;
-    }
+/* Overlay animated amin'ny hover */
+.link-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 0;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: width 0.3s ease-in-out;
+}
 
-    .link-button {
-      background-color: #ff99cc;
-      border: none;
-      color: #fff;
-      padding: 15px 30px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: bold;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
+/* Hover effect */
+.link-button:hover::before {
+  width: 150%;
+}
 
-    .link-button::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 300%;
-      height: 300%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-      transform: translate(-50%, -50%) scale(0);
-      transition: transform 0.5s ease;
-      border-radius: 50%;
-    }
+.link-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
 
-    .link-button:hover::before {
-      transform: translate(-50%, -50%) scale(1);
-    }
+/* Fampifanarahana amin'ny efijery kely */
+@media (max-width: 600px) {
+  .link-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
 
-    .link-button:hover {
-      background-color: #cc0066;
-      transform: translateY(-5px);
-      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    }
 
-    .link-button:active {
-      transform: translateY(0);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
 
-    /* Animation pour les boutons */
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-    }
 
-    .link-button {
-      animation: float 3s ease-in-out infinite;
-    }
 
-    .link-button:nth-child(1) { animation-delay: 0s; }
-    .link-button:nth-child(2) { animation-delay: 0.5s; }
-    .link-button:nth-child(3) { animation-delay: 1s; }
-    .link-button:nth-child(4) { animation-delay: 1.5s; }
-    .link-button:nth-child(5) { animation-delay: 2s; }
-    .link-button:nth-child(6) { animation-delay: 2.5s; }
-    .link-button:nth-child(7) { animation-delay: 3s; }
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style an'ny Section Enregistrement & Vérification CIN */
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Style an'ny container */
+#form-registration-cin,
+#form-verification-cin {
+  width: 90%;
+  max-width: 400px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect amin'ny formulaire */
+#form-registration-cin:hover,
+#form-verification-cin:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Style an'ny labels */
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Style an'ny input */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Hover & Focus effect amin'ny input */
+input:focus {
+  border-color: #6a11cb;
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(106, 17, 203, 0.5);
+}
+
+/* Style an'ny bokotra */
+button {
+  width: 100%;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated overlay amin'ny bokotra */
+button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 0;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: width 0.3s ease-in-out;
+}
+
+button:hover::before {
+  width: 150%;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #form-registration-cin,
+  #form-verification-cin {
+    width: 95%;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Main container */
+.container {
+  width: 90%;
+  max-width: 900px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect amin'ny container */
+.container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Forms */
+.form-section {
+  width: 48%;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Titles */
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #444;
+}
+
+/* Input Fields */
+input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Input Focus Effect */
+input:focus {
+  border-color: #6a11cb;
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(106, 17, 203, 0.5);
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button Hover Effect */
+button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 0;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: width 0.3s ease-in-out;
+}
+
+button:hover::before {
+  width: 150%;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-section {
+    width: 100%;
+  }
+}
+
+
   </style>
 </head>
-
 <body>
   <header>
     <h1>EVO Finance Service</h1>
   </header>
-  
+
   <!-- Customer Service Button -->
-  </" class="customer-service-btn" target="_blank">
+  <a href="#" class="customer-service-btn" target="_blank">
     <i class="fas fa-headset"></i>
   </a>
-  
+
   <div id="main-content">
     <!-- Section Profil sy Cover -->
     <section class="profile-section">
@@ -245,59 +459,17 @@
           <input type="file" id="profileInput" accept="image/*" style="display: none;">
         </div>
       </div>
-    </section><br ><br ><br ><br >
-    <section>
-        <h1 style ="color :blue ;border-radius :20px double black ;background-color ;yellow ; text-align :center ;">EVO-FINANCE TRADING </h1>
-        <section >
-        <!<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Liste de Concepts</title>
-  <style>
+    </section><br >><br ><br ><br >
 
-    .container {
-      background-color: #ffffff;
-      padding: 20px 40px;
-      border: 2px solid #ddd;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    li {
-      font-size: 1.5rem;
-      text-align: center;
-      padding: 10px;
-      margin: 5px 0;
-      border-bottom: 1px solid #ccc;
-    }
-    li:last-child {
-      border-bottom: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <ul>
-      <li>Échange</li>
-      <li>Amour mutuel</li>
-      <li>Communauté durable</li>
-      <li>Solidarité</li>
-    </ul>
-  </div>
-</body>
-</html>
-
-
-    </section>
-    
     <!-- Section Compte -->
-    <section id="mon-compte"><br ><br >
+    <section id="mon-compte">
+        
+        
+        
+        
+        
+    
+    
     <section >
     <!DOCTYPE html>
 <html lang="mg">
@@ -359,6 +531,14 @@
 </body>
 </html>
 </section >
+
+
+
+
+
+
+
+
       <h2>Mon compte</h2>
       <div class="account-info">
         <div class="compte-depot">
@@ -371,9 +551,31 @@
         </div>
       </div>
     </section>
-    
+
+
+
+    <section >
+    <!-- Section Liens externes -->
+    <section id="extra-sections">
+      <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
+      <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
+      <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
+      <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
+      <a href="https://evo-finance-demande-du-d-p-t.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
+      <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
+      <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">Plan d'investissement</a>
     <!-- Section Transaction -->
     <section id="transaction">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
       <h2>Transaction</h2>
       <div class="transaction-buttons">
         <button id="btn-depot">Faire un dépôt</button>
@@ -381,6 +583,16 @@
         <button id="btn-transfert">Faire une transfert d'argent</button>
       </div>
       <div class="transaction-forms">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
         <!-- Formulaire Dépôt -->
         <form id="form-depot" style="display: none;">
           <h3>Dépôt</h3>
@@ -396,15 +608,17 @@
           <input type="text" id="id-transaction" required>
           <button type="submit">Valider le dépôt</button>
         </form>
+
         <!-- Formulaire Retrait -->
         <form id="form-retrait" style="display: none;">
           <h3>Retrait</h3>
-          <label for="retrait-montant">Montant à retrait:</label>
+          <label for="retrait-montant">Montant à retirer:</label>
           <input type="number" id="retrait-montant" min="1" placeholder="Minimum 1$" required>
           <label for="adresse-retrait">Adresse du retrait (PAYEER UNIQUEMENT):</label>
           <input type="text" id="adresse-retrait" required>
           <button type="submit">Valider le retrait</button>
         </form>
+
         <!-- Formulaire Transfert d'argent -->
         <form id="form-transfert" style="display: none;">
           <h3>Transfert d'argent</h3>
@@ -422,6 +636,13 @@
       </div>
     </section>
     
+    
+    
+    
+    
+    
+    
+
     <!-- Section Trading -->
     <section id="trading">
       <h2>Trading</h2>
@@ -433,19 +654,8 @@
           <button id="btn-ajouter-gains">Ajouter au compte du gains</button>
         </div>
       </div>
-    </section><br ><br >
-    <section >
-    <!-- Section Liens externes -->
-    <section id="extra-sections">
-      <a href="https://evo-finance-seven.vercel.app/" target="_blank" class="link-button">Entreprise</a>
-      <a href="https://evo-finance-quipe-ivl7.vercel.app/" target="_blank" class="link-button">Gestion d'équipes</a>
-      <a href="https://evo-finance-guide.vercel.app/" target="_blank" class="link-button">Guide complet</a>
-      <a href="https://evo-finance-bot-f1po.vercel.app/" target="_blank" class="link-button">Besoin d'aide ?</a>
-      <a href="https://evo-finance-demande-du-d-p-t.vercel.app/" target="_blank" class="link-button">Dépôt Evo. Fin</a>
-      <a href="https://evo-finance-demande-retrait.vercel.app/" target="_blank" class="link-button">Retrait Evo. Fin</a>
-      <a href="https://plan-de-travail.vercel.app/" target="_blank" class="link-button">Plan d'investissement</a>
     </section>
-    
+
     <!-- Section Historique -->
     <section id="historique">
       <h2>Historique</h2>
@@ -453,9 +663,21 @@
         <!-- Ireo transaction dia hiseho eto -->
       </div>
     </section>
-    
+
     <!-- Section Enregistrement CIN -->
     <section id="registration-cin">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
       <h2>Enregistrement CIN</h2>
       <form id="form-registration-cin">
         <label for="reg-email">E-mail :</label>
@@ -469,7 +691,7 @@
         <button type="submit">Enregistrer</button>
       </form>
     </section>
-    
+
     <!-- Section Vérification CIN -->
     <section id="verification-cin">
       <h2>Vérification CIN</h2>
@@ -483,32 +705,21 @@
         <button type="submit">Vérifier</button>
       </form>
     </section>
-    
-    <!-- Modal amin'ny fanitarana sary profil -->
-    <div id="modal" class="modal">
-      <span class="close">&times;</span>
-      <img class="modal-content" id="modalImg">
-    </div>
   </div>
   
-  <!-- Rohy mankany amin'ny pejy confirmation (ho an'ny admin) -->
-  <section <!DOCTYPE html>
-  <html lang="fr">
-  <head>
-      <meta charset="UTF-8">
-      <title>Titre de la page</title>
-  </head>
-  <body>
-      
-  </body>
-  </html>
+  
+  
+  
+  
+  
+
   <!-- JavaScript Inline (Firebase, logique, upload, modal) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
     import { getFirestore, collection, addDoc, doc, updateDoc, setDoc, getDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-    
+
     const firebaseConfig = {
       apiKey: "AIzaSyDbAk8VyG7gfzmmFAFLAnUtUi1XrSNrQQQ",
       authDomain: "evo-finance-service.firebaseapp.com",
@@ -518,17 +729,17 @@
       appId: "1:231632509264:web:03cf6b9e2ef75a4f7bb455",
       measurementId: "G-2561NK5LL8"
     };
-    
+
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
     const auth = getAuth(app);
-    
+
     let currentUser = null;
     let soldeDepot = 0;
     let soldeGains = 0;
     let currentGain = 0;
-    
+
     // Enregistrement CIN
     document.getElementById('form-registration-cin').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -551,7 +762,7 @@
         showNotification("Erreur: " + error.message);
       }
     });
-    
+
     // Vérification CIN
     document.getElementById('form-verification-cin').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -589,7 +800,7 @@
         showNotification("Erreur: " + error.message);
       }
     });
-    
+
     async function loadBalance() {
       if (currentUser) {
         const balanceRef = doc(db, "balances", currentUser.uid);
@@ -606,7 +817,7 @@
         updateBalances();
       }
     }
-    
+
     async function updateBalances() {
       document.getElementById('soldeDepot').innerText = soldeDepot.toFixed(2) + "$";
       document.getElementById('soldeGains').innerText = soldeGains.toFixed(2) + "$";
@@ -614,7 +825,7 @@
         await setDoc(doc(db, "balances", currentUser.uid), { soldeDepot, soldeGains }, { merge: true });
       }
     }
-    
+
     function showNotification(message) {
       const notif = document.createElement("div");
       notif.className = "notification";
@@ -622,7 +833,7 @@
       document.body.appendChild(notif);
       setTimeout(() => { notif.remove(); }, 2000);
     }
-    
+
     async function addHistorique(type, montant, fee = 0) {
       try {
         await addDoc(collection(db, "historique"), { type, montant, fee, timestamp: new Date(), uid: currentUser.uid });
@@ -631,7 +842,7 @@
         console.error("Erreur lors de l'ajout de l'historique: ", error);
       }
     }
-    
+
     async function loadHistorique() {
       if (currentUser) {
         const histQuery = query(collection(db, "historique"), where("uid", "==", currentUser.uid));
@@ -647,7 +858,7 @@
         });
       }
     }
-    
+
     // Gestion des formulaires de transaction
     document.getElementById('btn-depot').addEventListener('click', () => {
       if (!currentUser) {
@@ -685,7 +896,7 @@
         showNotification("Adresse copiée: " + address);
       });
     };
-    
+
     // Formulaire Dépôt
     document.getElementById('form-depot').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -715,7 +926,7 @@
         console.error("Erreur lors du dépôt: ", error);
       }
     });
-    
+
     // Formulaire Retrait
     document.getElementById('form-retrait').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -730,7 +941,7 @@
       }
       const frais = montant * 0.10; // Frais de 10%
       const total = montant + frais;
-      if (soldeDepot < total) {
+      if (soldeGains < total) {
         showNotification("Solde insuffisant pour le retrait.");
         return;
       }
@@ -744,7 +955,7 @@
           status: "pending",
           timestamp: new Date()
         });
-        soldeDepot -= total;
+        soldeGains -= total; // On déduit uniquement du Solde gains
         await updateBalances();
         showNotification("Demande de retrait envoyée");
         addHistorique("Retrait", montant, frais);
@@ -752,7 +963,7 @@
         console.error("Erreur lors du retrait: ", error);
       }
     });
-    
+
     // Formulaire Transfert d'argent
     document.getElementById('form-transfert').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -806,11 +1017,11 @@
       addHistorique("Transfert", montant, frais);
       showNotification("Transfert effectué vers " + emailUtilisateur);
     });
-    
+
     const tradingButton = document.getElementById('btn-trading');
     const tradingStatus = document.getElementById('trading-status');
     const notificationTrading = document.getElementById('notification-trading');
-    
+
     tradingButton.addEventListener('click', async () => {
       if (!currentUser) {
         showNotification("Veuillez vérifier votre CIN pour effectuer cette opération.");
@@ -850,7 +1061,7 @@
         }, 5000);
       }, 5000);
     });
-    
+
     document.getElementById('btn-ajouter-gains').addEventListener('click', () => {
       if (currentGain > 0) {
         soldeGains += currentGain;
@@ -863,10 +1074,10 @@
         showNotification("Trading déjà effectué ou aucun gain disponible.");
       }
     });
-    
+
     updateBalances();
   </script>
-  
+
   <script>
     function handleFileInput(inputElement, imgElementId, storageKey) {
       const file = inputElement.files[0];
@@ -917,7 +1128,17 @@
     });
   </script>
 </body>
-</html>
+</html
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -975,3 +1196,4 @@
   </div>
 </body>
 </html>
+>
